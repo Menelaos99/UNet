@@ -1,0 +1,67 @@
+\documentclass[german]{tumletter}
+
+
+% set letter specific variables (overwriting defaults)
+\setkomavar{fromname}{Erika Mustermann}
+\setkomavar{fromaddress}{Arcisstraße 21\\80333 München}
+\setkomavar{backaddress2}{2. Adresszeile optional\\löschen falls nicht nötig}
+\setkomavar{date}{1. März 2021}
+
+% chair and department information (overwriting defaults from tumuser.sty)
+\provideName{\theDepartmentName}{Some clinic}{Musterklinikum}
+\provideName{\theChairName}{Any Group}{Abteilung für Musterverfahren}
+
+% letter subject
+\setkomavar{subject}{Betreffzeile}
+
+
+% modify footer column 2
+\setkomavar{tum.footer.col2}{%
+  \textbf{Prof.\@~Dr.\@ Muster}\\Ärztlicher Direktor\\
+  \vspace{\baselineskip} % add one empty line
+  \textbf{Muster Direktor}\\Kaufmännischer Direktor\\
+  \vspace{\baselineskip} % add one empty line
+  \textbf{Muster Direktor}\\Pflegedirektorin\\
+  \vspace{\baselineskip} % add one empty line
+  \textbf{Prof.\@~Dr.\@ Muster Arzt}\\Dekan
+}
+
+% modify footer column 3
+\setkomavar{tum.footer.col3}{%
+  Musterabteilung\\Musterstraße 22\\81234 Musterstadt\\
+  \TUMEmail{muster.direktor@tum.de}\\\TUMPhoneNumbers[12346]{12345}\\
+  \vspace{\baselineskip} % add one empty line
+  Musterklinikum\\Musterweg 1\\80333 München\\
+  \TUMEmail{muster.arzt@tum.de}\\\TUMPhoneNumbers[11112]{11111}
+}
+
+
+\begin{document}
+\begin{letter}{Fa. Muster Mechanik\\Herrn Max Mustermann\\
+    Musterstraße 12\\80333 München}
+
+  \opening{Sehr geehrter Herr Mustermann,}
+  \raggedright
+
+  dies ist die Vorlage für den Brief der Technischen Universität München
+  (TUM). Die Vorlage ist nach dem aktuellen Corporate Design der TUM gestaltet
+  und verbindlich. Zur Optimierung für den C4-Umschlag mit Fenster fügen Sie
+  bitte eine Leerzeile vor Ort und Datum ein.
+
+  Bitte geben Sie Ihren individuellen Text an den vorgesehenen Stellen ein und
+  nutzen Sie die installierten Formatvorlagen für den jeweiligen Absender. Die
+  Fußzeile wächst mit, falls weitere Informationen untergebracht werden
+  müssen. Wir empfehlen nicht mehr als 15 Zeilen. Bitte geben Sie stets
+  Fakultät und Lehrstuhl an und achten Sie bei Ihrem Namen darauf den
+  vollständigen akademischen Grad anzugeben. In der Kopfzeile steht nur das
+  Logo der TUM in der Markenfarbe.
+
+  Achten Sie ebenfalls darauf, dass das Dokument in Originalgröße gedruckt
+  wird, also keine Anpassung an die Druckränder bei Ihren Druckereinstellungen
+  aktiviert ist, damit die Falz- und Lochmarken an der richtigen Stelle
+  stehen. Weitere Informationen zum Corporate Design der TUM finden Sie unter
+  \TUMWebsite{www.tum.de/cd}.
+
+  \closing{Mit freundlichen Grüßen}
+\end{letter}
+\end{document}

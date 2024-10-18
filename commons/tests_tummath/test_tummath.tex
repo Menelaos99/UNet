@@ -1,0 +1,1289 @@
+\documentclass[DIV=13]{scrartcl}
+
+\usepackage{tumbase}
+\usepackage{tumcolors}
+\usepackage{tumlang}
+\usepackage[font=@TEXTFONT@]{tumfonts}
+\usepackage{tumboxes}
+\tcbuselibrary{listings}
+\usepackage{tummath}
+
+\usepackage{multicol}
+\usepackage[hidelinks]{hyperref}
+
+
+\title{The \texttt{tummath} package}
+\author{\LaTeX4EI}
+\date{17.06.2021}
+
+
+\makeatletter
+\@ifpackagelater{siunitx}{2021/05/01}{
+  %%% siunitx v3
+}{
+  %%% siunitx v2
+  % fake compatibility with v3 to make this testcase compile
+  % with all versions
+  \newcommand{\complexnum}[2][]{\num[#1]{#2}}
+  \newcommand{\complexqty}[2][]{\SI[#1]{#2}}
+}
+\makeatother
+
+\DeclareSIUnit{\statV}{statV}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  The aim of the \texttt{tummath} package is to provide macros for consistent
+  mathematical typesetting. The package adds shorthand macros for frequently
+  used constructs and implements symbols and operators missing in the default
+  \LaTeX\ environment to provide a more complete set of symbols.
+  Whereever possible, we follow the ISO \num{80000}-x norms (mainly part 2 of
+  the series is of importance here).
+
+  This document introduces all macros provided by the \texttt{tummath}
+  package and in addition to that, it serves as a cheat-sheet for available
+  \LaTeX\ symbols. We organized the symbols into mathmatical topics and tried
+  to include the most relevant symbols.
+
+  (Disclaimer: The provided examples should give a visual impression of the
+  symbols. They do not necessarily make sense mathematically.)
+\end{abstract}
+
+\begin{multicols*}{2}
+  \tableofcontents
+\end{multicols*}
+
+
+\section{Package dependencies}
+The \texttt{tummath} package depends on the following list of \LaTeX\
+packages. It was designed to work with the fonts provided by the
+\texttt{tumfonts} package.
+\begin{multicols}{4}
+  \begin{itemize}
+    \item etoolbox
+    \item array
+    \item booktabs
+    \item mathtools
+    \item scalerel
+    \item bm
+    \item tensor
+    \item siunitx
+    \item tikz
+  \end{itemize}
+\end{multicols}
+
+
+\section{Basic Math notation}
+\subsection{Logic}
+This package adds macros for logical implications and equivalence to provide
+a full set of logical operators.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}      & \textbf{Output} \\
+    \midrule
+    and                  & \verb|A \land B|    & $A \land B$     \\
+    or                   & \verb|A \lor B|     & $A \lor B$      \\
+    not                  & \verb|\lnot A|      & $\lnot A$       \\
+    implication          & \verb|A \lifthen B| & $A \lifthen B$  \\
+    equivalence          & \verb|A \lequiv B|  & $A \lequiv B$   \\
+    \midrule
+    allquantor           & \verb|\forall x|    & $\forall x$     \\
+    existence quantor    & \verb|\exists x|    & $\exists x$     \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \lnot(\forall x \in A : S(x)) \lequiv \exists x \in A : \lnot S(x), \\
+  (A \lequiv B) \lequiv ((A \lifthen B) \land (B \lifthen A)), \\
+  (A \lifthen B) \lequiv \lnot(A \land \lnot B), \\
+  (A \lor B) \lequiv \lnot(\lnot A \land \lnot B).
+\end{gather}
+
+
+\subsection{Set Theory}
+The \verb|\set{}| macro is implemented with \texttt{mathtools}
+paired delimiters and can take a size macro as optional argument.
+Both the set braces and the vertical bar added by the \verb|\given| macro
+will scale according to the size macro. The starred version of the command
+\verb|\set*{}| will scale according to the content using the \verb|\left|,
+\verb|\right|, \verb|\middle| commands internally.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}          & \textbf{Output}    \\
+    \midrule
+    set                  & \verb|\set{1,2,3,4}|    & $\set{1,2,3,4}$    \\
+    set with condition   & \verb|\set{x \given A}| & $\set{x \given A}$ \\
+    empty set            & \verb|\emptyset,\set{}| & $\emptyset,\set{}$ \\
+    \midrule
+    union                & \verb|A \cup B|         & $A \cup B$         \\
+    intersection         & \verb|A \cap B|         & $A \cap B$         \\
+    set difference       & \verb|A \setminus B|    & $A \setminus B$    \\
+    subset               & \verb|A \subseteq B|    & $A \subseteq B$    \\
+                         & \verb|B \supseteq A|    & $B \supseteq A$    \\
+    proper subset        & \verb|A \subset B|      & $A \subset B$      \\
+                         & \verb|B \supset A|      & $B \supset A$      \\
+    not subset           & \verb|A \nsubseteq B|   & $A \nsubseteq B$   \\
+                         & \verb|B \nsupseteq A|   & $B \nsupseteq A$   \\
+    element of           & \verb|x \in A|          & $x \in A$          \\
+    not element of       & \verb|x \notin A|       & $x \notin A$       \\
+    \midrule
+    cardinality          & \verb|\card A|          & $\card A$          \\
+    supremum             & \verb|\sup A|           & $\sup A$           \\
+    infimum              & \verb|\inf A|           & $\inf A$           \\
+    maximum              & \verb|\max A|           & $\max A$           \\
+    minimum              & \verb|\min A|           & $\min A$           \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \emptyset\subseteq M \quad\text{and}\quad M\subseteq M, \\
+  A=B \lequiv ((A \subseteq B)\land(B \subseteq A)), \\
+  A \cap B = \set*{x \given x\in A \land x\in B}, \\
+  A \subseteq B \lequiv A \cap B = A, \\
+  \mathcal{P}(M) = \set{A \given A\subseteq M}, \\
+  A\times B = \set[\Big]{(a,b) \given a\in A, b\in B}, \\
+  \card \Rnums = \infty, \\
+  \max A = \sup A \in A, \\
+  \min A = \inf A \in A.
+\end{gather}
+
+
+\subsection{Maps and Functions}
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}   & \textbf{Output} \\
+    \midrule
+    mapping domains      & \verb|X \to Y|   & $X \to Y$       \\
+    mapping elements     & \verb|x \mapsto \function{f}{x}|
+                         & $x \mapsto \function{f}{x}$        \\
+    image                & \verb|\im(X)|    & $\im(X)$        \\
+    pre-image            & \verb|\preim(Y)| & $\preim(Y)$     \\
+    composition          & \verb|g \circ f| & $g \circ f$     \\
+    identity             & \verb|\id_X|     & $\id_X$         \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  f : \begin{cases}
+    \Rnums \to \Rnums_+ \\
+    x \mapsto \e^x
+  \end{cases}, \\
+  f : M \to N, \\
+  \im_f(A) \coloneq \set*{f(a) \in N \given a \in A \subseteq M}, \\
+  \preim_f(B) \coloneq
+  \set*{m \in M \given \function{f}{m} \in B \subseteq N}, \\
+  g : N \to P, \\
+  g \circ f : \begin{cases}
+    M \to P \\
+    m \mapsto (g \circ f)(m) \coloneq \function{g}{\function{f}{m}}
+  \end{cases}, \\
+  g : N \to M, \\
+  g \circ f = \id_M \;\text{and}\; f \circ g = \id_N
+  \;\lifthen\; g=f^{-1}.
+\end{gather}
+
+This package relies heavily on the paired delimiter framework introduced by
+the \texttt{mathtools} package. This gives the user the ability to
+scale the delimiters manually by adding the size command as an optional
+argument or use the starred version for automatic scaling, which uses the
+\verb|\left| and \verb|\right| macros internally.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Size} & \textbf{Macro}
+                  & \textbf{Output}               \\
+    \midrule
+    normal        & \verb|\function{f}{x}|
+                  & $\function{f}{x}$             \\
+    big           & \verb|\function[\big]{f}{x}|
+                  & $\function[\big]{f}{x}$       \\
+    Big           & \verb|\function[\Big]{f}{x}|
+                  & $\function[\Big]{f}{x}$       \\
+    bigg          & \verb|\function[\bigg]{f}{x}|
+                  & $\function[\bigg]{f}{x}$      \\
+    Bigg          & \verb|\function[\Bigg]{f}{x}|
+                  & $\function[\Bigg]{f}{x}$      \\
+    automatic     & \verb|\function*{f}{x}|
+                  & $\function*{f}{x}$            \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+
+\subsection{Numbers}
+For convenience, shorthand macros for the basic number sets are defined.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}    & \textbf{Output} \\
+    \midrule
+    natural numbers      & \verb|\Nnums|     & $\Nnums$        \\
+    integer numbers      & \verb|\Znums|     & $\Znums$        \\
+    rational numbers     & \verb|\Qnums|     & $\Qnums$        \\
+    real numbers         & \verb|\Rnums|     & $\Rnums$        \\
+    complex numbers      & \verb|\Cnums|     & $\Cnums$        \\
+    quaternions          & \verb|\Hnums|     & $\Hnums$        \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+According to the ISO \num{80000} the symbols for imaginary units should be
+printed in upright math font.
+The accent macro \verb|\k| is saved as \verb|\ogonek|. The text macros
+\verb|\i| and \verb|\j| for dotless versions of the letters i and j are saved
+as \verb|\dotlessi| and \verb|\dotlessj|.
+
+The shorthand macro for the default imaginary unit \verb|\imu| defaults to
+\verb|\j| (engineering notation) and may be redefined by the user in the
+document preamble.
+
+The macros for real and imaginary part as well as the macro for the absolute
+value are implemented using \texttt{mathtools} paired delimiters and can be
+scaled with an optional argument or the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}             & \textbf{Output}     \\
+    \midrule
+    imaginary units      & \verb|\i, \j, \k|          & $\i, \j, \k$        \\
+    default imag. unit   & \verb|\imu|                & $\imu$              \\
+    complex numbers      & \verb|z = a + \i b|        & $z = a + \i b$      \\
+    complex conjugate    & \verb|\cc{z} = a - \i b|   & $\cc{z} = a - \i b$ \\
+    real part            & \verb|\Re{z} = a|          & $\Re{z} = a$        \\
+    imaginary part       & \verb|\Im{z} = b|          & $\Im{z} = b$        \\
+    magnitude            & \verb|r = \abs{z}|         & $r = \abs{z}$       \\
+    argument             & \verb|\varphi = \arg(z)|   & $\varphi = \arg(z)$ \\
+    euler representation & \verb|z = r\e^{\i\varphi}|
+                         & $z = r\e^{\i\varphi}$                            \\
+    \midrule
+    quaternions          & \verb|q = a + \i b + \j c + \k d|
+                         & $q = a + \i b + \j c + \k d$                     \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+According to the ISO \num{80000} there is no special notation for complex
+quantities. Like for any real quantity, italic letters are used to denote
+complex quantities. In some fields of electrical engineering, it is common
+practice to underline complex quantities. This is allowed according to the
+German DIN EN \num{60027}-1. To provide this notation, we implement the
+macro \verb|\cnum{z}| printing the complex quantity $\cnum{z}$. Similarly,
+the macros \verb|\cvec{v}| and \verb|\cmat{M}| are implemented to denote
+complex valued vectors $\cvec{v}$ and matrices $\cmat{M}$.
+
+If you choose to use this notation, you should redefine the macro for the
+complex conjugate in your preamble to use the star notation.
+\begin{verbatim}
+  \renewcommand*{\cc}[1]{{#1^\ast}}
+\end{verbatim}
+
+
+\subsection{Symbols for relations}
+\LaTeX\ provides many symbols for relations. The table summarizes a subset
+of symbols that is recommended by the ISO \num{80000}.
+This package adds symbols for definitions $\coloneq$, $\eqcolon$, $\defeq$,
+correspondence $\correq$, and an equal sign with exclamation mark $\excleq$.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll|lll}
+    \toprule
+    \textbf{Description}   & \textbf{Macro}   & \textbf{Output} &
+    \textbf{Description}   & \textbf{Macro}   & \textbf{Output} \\
+    \midrule
+    equal                  & \verb|=|         & $=$             &
+    equivalent             & \verb|\equiv|    & $\equiv$        \\
+    not equal              & \verb|\neq|      & $\neq$          &
+    congruent / isomorphic & \verb|\cong|     & $\cong$         \\
+    equal by definition    & \verb|\coloneq|  & $\coloneq$      &
+    asymptotically equal   & \verb|\simeq|    & $\simeq$        \\
+                           & \verb|\eqcolon|  & $\eqcolon$      &
+    approximately equal    & \verb|\approx|   & $\approx$       \\
+                           & \verb|\defeq|    & $\defeq$        &
+    proportional           & \verb|\sim|      & $\sim$          \\
+    corresponds to         & \verb|\correq|   & $\correq$       &
+                           & \verb|\propto|   & $\propto$       \\
+    shall be equal         & \verb|\excleq|   & $\excleq$       \\
+    \midrule
+    less than              & \verb|<|         & $<$             &
+    greater than           & \verb|>|         & $>$             \\
+    less or equal          & \verb|\leq|      & $\leq$          &
+    greater or equal       & \verb|\geq|      & $\geq$          \\
+    much less              & \verb|\ll|       & $\ll$           &
+    much greater           & \verb|\gg|       & $\gg$           \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+
+\subsection{Intervals and rounding symbols}
+The interval and rounding symbols are implemented using \texttt{mathtools}
+paired delimiters and can be scaled using an optional size argument or by
+using the starred version to automatically scale to the content.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}          & \textbf{Output}    \\
+    \midrule
+    open interval        & \verb|\ointerval{a,b}|  & $\ointerval{a,b}$  \\
+    closed interval      & \verb|\cinterval{a,b}|  & $\cinterval{a,b}$  \\
+    semi-open (left)     & \verb|\ocinterval{a,b}| & $\ocinterval{a,b}$ \\
+    semi-open (right)    & \verb|\cointerval{a,b}| & $\cointerval{a,b}$ \\
+    \midrule
+    floor function       & \verb|\floor{x}|        & $\floor{x}$        \\
+    ceil function        & \verb|\ceil{x}|         & $\ceil{x}$         \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \cinterval{a,b} \coloneq \set{x \in \Rnums \given a \leq x \leq b}, \\
+  \ointerval{a,b} \coloneq \set{x \in \Rnums \given a < x < b}, \\
+  \ocinterval{a,b} \coloneq \set{x \in \Rnums \given a < x \leq b}, \\
+  \cointerval{a,b} \coloneq \set{x \in \Rnums \given a \leq x < b}, \\
+  \floor{2.8} = 2, \\
+  \ceil{2.4} = 3, \\
+\end{gather}
+
+
+\section{Analysis}
+\subsection{General symbols}
+According to the ISO \num{80000}, special constants such as the euler number
+$\e$ have to be printed in upright math font. The macros for the absolute
+value and the Landau symbol are implemented using \texttt{mathtools}
+paired delimiters.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description}  & \textbf{Macro}   & \textbf{Output}     \\
+    \midrule
+    absolute value        & \verb|\abs{x}|   & $\abs{x}$           \\
+    signum                & \verb|\sgn(x)|   & $\sgn(x)$           \\
+    \midrule
+    euler number          & \verb|\e|        & $\e$                \\
+    exponential function  & \verb|\exp(x)|   & $\exp(x)$           \\
+    \midrule
+    limes                 & \verb|\lim_{n\to\infty} a_n|
+                          & $\lim_{n\to\infty} a_n$                \\
+    limes superior        & \verb|\limsup_{n\to\infty} a_n|
+                          & $\limsup_{n\to\infty} a_n$             \\
+    limes inferior        & \verb|\liminf_{n\to\infty} a_n|
+                          & $\liminf_{n\to\infty} a_n$             \\
+    \midrule
+    Landau symbol (big O) & \verb|\landau*{n^2}| & $\landau*{n^2}$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \abs{x}\coloneq\begin{cases}
+    \phantom{-}x & x\geq 0 \\
+    -x           & x<0
+  \end{cases}, \qquad
+  \sgn(x)\coloneq\begin{cases}
+    \phantom{-}1 & x>0 \\
+    \phantom{-}0 & x=0 \\
+    -1           & x<0
+  \end{cases}, \\
+  \abs*{\frac{(a+b)c}{d-e}} + f\cdot\abs[\big]{g}, \\
+  \abs{x+y} \leq \abs{x}+\abs{y}, \\
+  \e = \e^1 \coloneq \exp(1) = \sum_{k=0}^\infty \frac{1}{k!},\\
+  \lim_{n\to\infty}(a_n) = a \quad\lequiv\quad
+  \forall\epsilon>0\;\exists N\in\Nnums\;\forall n\geq N:
+  \abs{a_n-a}<\epsilon,\\
+  \limsup_{n\to\infty} a_n \coloneq \sup H(a_n), \\
+  \liminf_{n\to\infty} a_n \coloneq \inf H(a_n), \\
+  n! = \sqrt{2\pi n}\left(\frac{n}{\e}\right)^n
+  \left(1+\landau*{\frac{1}{n}}\right) \quad\text{for } n\to\infty, \\
+  f\in\landau*{n\log n}.
+\end{gather}
+
+
+\subsection{Differentials}
+According to the ISO \num{80000}, the differential symbol $\diff$ must be
+printed in upright math font. The shorthand macros for derivatives and
+partial derivatives typeset a fraction with differential symbols.
+The optional argument specifies the order of the derivative and will print
+the exponents accordingly.
+% \begin{noindent}
+\begin{center}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}            & \textbf{Output}      \\
+    \midrule
+    differential element & \verb|\diff x|            & $\diff x$            \\
+    derivative           & \verb|\dd{\vec{r}}{t}|    & $\dd{\vec{r}}{t}$    \\
+    second derivative    & \verb|\dd[2]{\vec{r}}{t}| & $\dd[2]{\vec{r}}{t}$ \\
+    $n$-th derivative    & \verb|\dd[n]{}{t}f(t)|    & $\dd[n]{}{t}f(t)$    \\
+    \midrule
+    partial derivatives  & \verb|\pdd[2]{}{t}\Psi(x,t)|
+                         & $\pdd[2]{}{t}\Psi(x,t)$                          \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+\begin{gather}
+  \function{f^\prime}{x} = \dd{\function{f}{x}}{x} = \lim_{x\to x_0}
+  \frac{\function{f}{x}-\function{f}{x_0}}{x-x_0}, \\
+  \function{f^{(n)}}{x} = \dd[n]{\function{f}{x}}{x}
+  = \dd{}{x}\function{f^{(n-1)}}{x}, \\
+  \diff H = \sum_{i=1}^{S}\left(\pdd{H}{p_i}\diff p_i +
+    \pdd{H}{q_i}\diff q_i\right) + \pdd{H}{t}\diff t, \\
+  \i\hbar\pdd{}{t}\Psi(x,t) =
+  \left[-\frac{\hbar^2}{2m}\pdd[2]{}{x} + V(x)\right]\Psi(x,t).
+\end{gather}
+
+
+\subsection{Integrals}
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llc}
+    \toprule
+    \textbf{Description}    & \textbf{Macro}   & \textbf{Output} \\
+    \midrule
+    integral                & \verb|\int|      & $\int$          \\
+    surface integral        & \verb|\iint|     & $\iint$         \\
+    volume integral         & \verb|\iiint|    & $\iiint$        \\
+    dots integral           & \verb|\idotsint| & $\idotsint$     \\
+    closed integral         & \verb|\oint|     & $\oint$         \\
+    closed surface integral & \verb|\oiint|    & $\oiint$        \\
+    % closed volume integral & \verb|\oiiint|    & $\oiiint$       \\
+    % sumint                 & \verb|\sumint|    & $\sumint$       \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \function{f}{z_0} = \frac{1}{2\pi\i}\oint_C
+  \frac{\function{f}{z}\diff z}{z-z_0}, \\
+  \oint_{\partial V} \vec{E}\cdot\diff\vec{A}
+  = \int_V \div\vec{E}(\vec{r})\diff^3 r, \\
+  \oint_{\partial A}\vec{a}\diff\vec{r}
+  = \int_A \rot\vec{a}\cdot\diff\vec{A}, \\[1ex]
+  \oiint_{\partial V}\vec{D}\diff\vec{A} = \iiint_V \rho\diff V, \\
+  \oiint_{\partial V}\vec{B}\diff\vec{A} = 0, \\
+  \oint_{\partial A}\vec{E}\diff\vec{s}
+  = -\iint_A \pdd{\vec{B}}{t}\cdot\diff\vec{A}, \\
+  \oint_{\partial A}\vec{H}\diff{\vec{s}}
+  = \iint_A\left(\vec{j} + \pdd{\vec{D}}{t}\right)\cdot\diff\vec{A}.
+\end{gather}
+
+
+\section{Linear Algebra}
+\subsection{Environments to print matrices}
+The \verb|amsmath| package provides several environments to typeset matrices
+and general arrays. This package adds an optional argument to
+all matrix environments to configure the column alignment and/or add
+vertical lines between columns.
+
+By default the columns are center aligned, but in some cases it might be
+beneficial to left or right align the matrix elements. Printing vertical
+lines can be useful to typeset linear systems.
+
+To provide horizontal lines with correct spacing, we redefined the
+\verb|\midrule| macro from \texttt{booktabs} within matrix environments.
+
+\begin{tcblisting}{TUMBox, sidebyside,
+    title={Matrix without delimiters (default, centered alignment)}}
+  \begin{equation}
+    \begin{matrix}
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{matrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=Matrix with parentheses (using right alignment)}
+  \begin{equation}
+    \begin{pmatrix}[*5r]
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{pmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=Matrix with brackets (using left alignment)}
+  \begin{equation}
+    \begin{bmatrix}[*5l]
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{bmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=Matrix with braces (using mixed alignment)}
+  \begin{equation}
+    \begin{Bmatrix}[l*3cr]
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{Bmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=Matrix with vertical lines}
+  \begin{equation}
+    \begin{vmatrix}
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{vmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=Matrix with double vertical lines}
+  \begin{equation}
+    \begin{Vmatrix}
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{Vmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=Block matrix using horizontal and vertical lines,
+    listing options={style=tcblatex, morekeywords={midrule}}
+  }
+  \begin{equation}
+    \begin{pmatrix}[*3r|rr]
+      1   & 2  & 3  & -1 & 0  \\
+      0   & -5 & 12 & 0  & -3 \\
+      \midrule
+      -10 & -3 & 1  & 4  & 7  \\
+    \end{pmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=A linear system of equations}
+  \begin{equation}
+    \begin{pmatrix}[*5c|c]
+      0 & 0 & 1 & 3 & 3 & 2 \\
+      1 & 2 & 1 & 4 & 3 & 3 \\
+      1 & 2 & 2 & 7 & 6 & 5 \\
+      2 & 4 & 1 & 5 & 3 & 4 \\
+    \end{pmatrix}
+  \end{equation}
+\end{tcblisting}
+\begin{tcblisting}{TUMBox, sidebyside,
+    title=The Gauß-Algorithm to invert a matrix}
+  \begin{gather}
+    \begin{pmatrix}[*3r|*3r]
+      1 & 0  & 1 & 1 & 0 & 0 \\
+      2 & -1 & 3 & 0 & 1 & 0 \\
+      1 & 2  & 0 & 0 & 0 & 1 \\
+    \end{pmatrix}\\[2ex]
+    \rightsquigarrow
+    \begin{pmatrix}[*3r|*3r]
+      1 & 0 & 0 & 6  & -2 & -1 \\
+      0 & 1 & 0 & -3 & 1  & 1  \\
+      0 & 0 & 1 & -5 & 2  & 1  \\
+    \end{pmatrix}
+  \end{gather}
+\end{tcblisting}
+% \begin{noindent}
+\begin{tcblisting}{TUMBox, title=Fancy lines in a matrix,
+    listing options={style=tcblatex, morekeywords={cmidrule}}
+  }
+  \begin{equation}
+    \begin{pmatrix}
+      0 & \multicolumn{1}{|c}{0} & 1 & 3 & 3 & 2 \\
+      \cmidrule{2-3}
+      1 & 2 & 1 & \multicolumn{1}{|c}{4} & 3 & 3 \\
+      \cmidrule{4-5}
+      1 & 2 & 2 & 7 & \multicolumn{1}{c|}{6} & 5 \\
+      \cmidrule(r){6-6}
+      2 & 4 & 1 & 5 & 3 & 4 \\
+    \end{pmatrix}
+  \end{equation}
+\end{tcblisting}
+% \end{noindent}
+
+
+\subsection{Matrices}
+Following the ISO \num{80000}, matrices should be printed in bold italic math
+font. Macros for the most important matrix operations are provided.
+The macros \verb|\Mat{}| and \verb|\Det{}| are shorthands for the
+\texttt{bmatrix} and \texttt{vmatrix} environments when used in
+\emph{display math} mode. When used in \emph{inline math} mode, the
+\texttt{mathtools} environments \texttt{bsmallmatrix*} and
+\texttt{vsmallmatrix*} are used. The optional arguments \verb|[l]|,
+\verb|[c]|, or \verb|[r]| may be used to specify left, center, or right
+alignment of the matrix columns.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}              & \textbf{Output}    \\
+    \midrule
+    matrix               & \verb|\mat{A}|              & $\mat{A}$          \\
+    transposed           & \verb|\mat{A}^\transp|      & $\mat{A}^\transp$  \\
+    complex conjugate    & \verb|\cc{\mat{A}}|         & $\cc{\mat{A}}$     \\
+    adjoint              & \verb|\mat{A}^\adjoint|     & $\mat{A}^\adjoint$ \\
+    inverse              & \verb|\mat{A}^\inv|         & $\mat{A}^\inv$     \\
+    \midrule
+    determinant          & \verb|\det\mat{A}|          & $\det\mat{A}$      \\
+    adjugate matrix      & \verb|\adj\mat{A}|          & $\adj\mat{A}$      \\
+    rank                 & \verb|\rank\mat{A}|         & $\rank\mat{A}$     \\
+    trace                & \verb|\trace\mat{A}|        & $\trace\mat{A}$    \\
+    diagonal matrix      & \verb|\diag(a_1,\dots,a_n)|
+                         & $\diag(a_1,\dots,a_n)$                           \\
+    \midrule
+    matrix               & \verb|\Mat{a & b \\ c & d}|
+                        & $\Mat{a & b \\ c & d}$                            \\
+    determinant          & \verb|\Det{a & b \\ c & d}|
+                        & $\Det{a & b \\ c & d}$                            \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \mat{A} = (a_{ij}), \\
+  \mat{I}\mat{A} = \mat{A}\mat{I} = \mat{A}, \\
+  (\mat{A}\mat{B})^\transp = \mat{B}^\transp\mat{A}^\transp,\\
+  \mat{A}^\adjoint = \cc{\mat{A}}^\transp, \\
+  \mat{A}^\inv = \frac{1}{\det\mat{A}}\adj\mat{A}, \\
+  \trace\mat{A} = \sum_{i=1}^n a_{ii}, \\
+  \diag(a_1,\dots,a_n) = \Mat{a_1 & & 0 \\ & \ddots & \\ 0 & & a_n},
+\end{gather}
+\begin{alignat}{2}
+  \mat{A}^\transp  & = \mat{A}            &  &
+  \quad\lequiv\quad \mat{A}\text{ is symmetric},  \\
+  \mat{A}^\adjoint & = \mat{A}            &  &
+  \quad\lequiv\quad \mat{A}\text{ is hermitian},  \\
+  \mat{A}^\inv     & = \mat{A}^{\transp}  &  &
+  \quad\lequiv\quad \mat{A}\text{ is orthogonal}, \\
+  \mat{A}^\inv     & = \mat{A}^{\adjoint} &  &
+  \quad\lequiv\quad \mat{A}\text{ is unitary}.
+\end{alignat}
+
+
+\subsection{Vectors}
+Following the ISO \num{80000}, vectors should be printed in bold italic math
+font. Alternatively, using non-bold symbols with arrows is allowed.
+Indices are not printed in bold. The \verb|\Vec{}| macro is implemented
+similar to the previously mentioned \verb|\Mat{}| macro for matrices.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llc}
+    \toprule
+    \textbf{Description}  & \textbf{Macro}           & \textbf{Output}     \\
+    \midrule
+    vector                & \verb|\vec{a}|           & $\vec{a}$           \\
+    vector with arrow     & \verb|\varvec{a}|        & $\varvec{a}$        \\
+    vector between points & \verb|\overrightarrow{AB}|
+                          & $\overrightarrow{AB}$                          \\
+    \midrule
+    dot product           & \verb|\vec{a}\cdot\vec{b}|
+                          & $\vec{a}\cdot\vec{b}$                          \\
+    cross product         & \verb|\vec{a}\times\vec{b}|
+                          & $\vec{a}\times\vec{b}$                         \\
+    \midrule
+    Kronecker symbol      & \verb|\kronecker{ij}|    & $\kronecker{ij}$    \\
+    Levi-Civita symbol    & \verb|\leviciv{ijk}|     & $\leviciv{ijk}$     \\
+    \midrule
+    column vector         & \verb|\Vec{1 \\ 2 \\ 3}| & $\Vec{1 \\ 2 \\ 3}$ \\
+    row vector            & \verb|\Vec{1 & 2 & 3}|   & $\Vec{1 & 2 & 3}$   \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \vec{v} = \Vec{v_1\\v_2\\\vdots\\v_n} = \sum_{i=1}^n v_i\,\vec{e}_i, \\
+  \cos\varphi = \frac{\vec{a}\cdot\vec{b}}{\abs{\vec{a}}\abs{\vec{b}}}, \\
+  \vec{a}\cdot\vec{b} = \sum_{i=1}^n a_i b_i = \kronecker{ij} a_i b_j, \\
+  \vec{a}\times\vec{b} = \Vec{a_2b_3-a_3b_2 \\ a_3b_1-a_1b_3 \\ a_1b_2-a_2b_1}
+  = \leviciv{ijk}\vec{e}_i a_j b_k , \\
+  \vec{\dot{r}}(t) = \vec{v}(t) = \dd{\vec{r}(t)}{t}, \\
+  \vec{\ddot{r}}(t) = \vec{a}(t) = \dd[2]{\vec{r}(t)}{t},
+\end{gather}
+\begin{gather}
+  \kronecker{ij} = \begin{dcases*}
+    1 & for $i=j$     \\
+    0 & for $i\neq j$
+  \end{dcases*}, \\
+  \leviciv{ijk} = \begin{dcases*}
+    1  & for $i,j,k$ cyclic       \\
+    -1 & for $i,j,k$ anti-cyclic  \\
+    0  & else (two equal indices)
+  \end{dcases*}.
+\end{gather}
+
+
+\subsection{Vector spaces, norms, and inner products}
+The macros for the inner product and the norm are implemented using
+\texttt{mathtools} paired delimiters. They can be scaled with an optional
+argument or automatically adapt to the content using the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}               & \textbf{Output} \\
+    \midrule
+    kernel               & \verb|\ker(f)|               & $\ker(f)$       \\
+    image                & \verb|\im(f)|                & $\im(f)$        \\
+    dimension            & \verb|\dim(V)|               & $\dim(V)$       \\
+    span                 & \verb|\vspan(v_1,\dots,v_k)|
+                         & $\vspan(v_1,\dots,v_k)$                        \\
+    \midrule
+    inner product        & \verb|\innerp{a}{b}|         & $\innerp{a}{b}$ \\
+    norm                 & \verb|\norm{x}|              & $\norm{x}$      \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  f : V \to W, \\
+  \ker(f) \coloneq \set{v \in V \given \function{f}{v} = 0 \in W}, \\
+  \im(f) \coloneq \set{\function{f}{v} \in W \given v \in V},  \\
+  \dim(V) = \dim\ker(f) + \dim\im(f), \\
+  \dim(V_1+V_2) = \dim(V_1) + \dim(V_2) - \dim(V_1\cap V_2), \\
+  \vspan(v_1,\dots,v_k)\coloneq\set*{v\in V \given
+    v=\sum_{i=1}^k\lambda_i v_i,\;\lambda_i\in K},
+\end{gather}
+\begin{gather}
+  \innerp{\cdot}{\cdot}: V \times V \to \Cnums \\
+  \innerp{x+y}{z} = \innerp{x}{z} + \innerp{y}{z}, \\
+  \innerp{\lambda x}{y} = \cc{\lambda}\innerp{x}{y}, \\
+  \innerp{x}{y+z} = \innerp{x}{y} + \innerp{x}{z}, \\
+  \innerp{x}{\lambda y} = \lambda\innerp{x}{y}, \\
+  \innerp{x}{y} = \cc{\innerp{y}{x}}, \\
+  \innerp{x}{x} \geq 0, \\
+  \innerp{\cdot}{\cdot}: C^0(\cinterval{a,b},\Rnums)
+  \times C^0(\cinterval{a,b},\Rnums) \to \Rnums, \\
+  \innerp{f}{g} = \int_a^b \function{f}{t}\function{g}{t}\diff t, \\
+  \innerp{\cdot}{\cdot}: L^2 \times L^2 \to \Cnums, \\
+  \innerp{f}{g} = \int \cc{\function{f}{x}}\function{g}{x}\diff x, \\
+  \innerp{\cdot}{\cdot}: \Cnums^{m\times n} \times \Cnums^{m\times n}
+  \to \Cnums, \\
+  \innerp{\mat{A}}{\mat{B}} = \trace(\mat{A}^\adjoint\mat{B}) =
+  \sum_{i=1}^m\sum_{j=1}^n \cc{a}_{ij} b_{ij}.
+\end{gather}
+\begin{gather}
+  \norm{\cdot} : V\to \Rnums_0^+, \\
+  \norm{\lambda\cdot v} = \abs{\lambda}\cdot\norm{v}\quad\text{for }
+  \lambda\in K \text{ and } v\in V, \\
+  \norm{x+y} \leq \norm{x} + \norm{y}, \\
+  \norm{v}\coloneq\sqrt{\innerp{v}{v}}.
+\end{gather}
+
+
+\section{Vector analysis}
+This package provides the \verb|\grad|, \verb|\div|, and \verb|\rot|
+operators. The capitalized macros are shorthand notations using the nabla
+symbol. In addition, the Laplace operator and the D'Alembert operator are
+implemented. The original div symbol $\division$ is saved as \verb|\division|.
+
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llc}
+    \toprule
+    \textbf{Description} & \textbf{Macro}           & \textbf{Output}     \\
+    \midrule
+    gradient             & \verb|\grad\phi|         & $\grad\phi$         \\
+    divergence           & \verb|\div\vec{v}|       & $\div\vec{v}$       \\
+    rotation             & \verb|\rot\vec{v}|       & $\rot\vec{v}$       \\
+    \midrule
+    nabla gradient       & \verb|\Grad\phi|         & $\Grad\phi$         \\
+    nabla divergence     & \verb|\Div\vec{v}|       & $\Div\vec{v}$       \\
+    nabla rotation       & \verb|\Rot\vec{v}|       & $\Rot\vec{v}$       \\
+    \midrule
+    Laplace operator     & \verb|\laplace\vec{v}|   & $\laplace\vec{v}$   \\
+    D'Alembert operator  & \verb|\dalembert\vec{v}| & $\dalembert\vec{v}$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+\begin{gather}
+  \nabla = \sum_{i=1}^n \vec{e}_i\pdd{}{x_i}, \\
+  \laplace = \nabla^2 = \sum_{i=1}^n \pdd[2]{}{x_i}, \\
+  \dalembert = \laplace - \frac{1}{c^2}\pdd[2]{}{t}, \\
+  \Rot(\Rot F) = \Grad(\Div F) - \laplace F, \\
+  \dalembert A^\alpha = \frac{4\pi}{c} j^\alpha, \\
+  m\dd[2]{\vec{r}}{t} = -m\Grad\function{\phi}{\vec{r}}.
+\end{gather}
+
+
+\section{Statistics}
+The probability and expectation value macros are implemented using
+\texttt{mathtools} paired delimiters. They can be scaled with an optional
+argument or automatically adapt to the content using the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llc}
+    \toprule
+    \textbf{Description} & \textbf{Macro}            & \textbf{Output}      \\
+    \midrule
+    probability          & \verb|\proba{A}|          & $\proba{A}$          \\
+    " with condition     & \verb|\proba{A \given B}| & $\proba{A \given B}$ \\
+    \midrule
+    expectation value    & \verb|\expect{A}|         & $\expect{A}$         \\
+                         & \verb|\varexpect{A}|      & $\varexpect{A}$      \\
+    variance             & \verb|\var(x)|            & $\var(x)$            \\
+    covariance           & \verb|\cov(x,y)|          & $\cov(x,y)$          \\
+    \midrule
+    binomial coefficient & \verb|\binom{n}{k}|       & $\binom{n}{k}$       \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \proba{A\given B} = \frac{\proba{B\given A}\proba{A}}{\proba{B}}, \\
+  \proba{A\given B} = \frac{\proba{A\cap B}}{\proba{B}}, \\
+  \proba*{\bigcup_{i=1}^\infty A_i} = \sum_{i=1}^\infty\proba{A_i}, \\
+  \expect{X} = \sum_{i=1}^\infty x_i\cdot\proba{X=x_i}, \\
+  \expect{X} = \int_{\Rnums}\function{f}{x}\diff\function{\lambda}{x}, \\
+  \var(X) \coloneq \expect*{(X-\expect{X})^2} = \expect{X^2}-\expect*{X}^2, \\
+  \cov(X, Y) \coloneq \expect*{(X-\expect{X})(Y-\expect{Y})}, \\
+  \cov(X, Y) = \cov(Y, X), \\
+  \cov(X, X) = \var(X), \\
+  \var(X) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})^2,\\
+  \cov(X,Y) = \frac{1}{n}\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y}), \\
+  \binom{n}{k} = \frac{n!}{k!(n-k)!}.
+\end{gather}
+
+
+\section{Special functions}
+In this section, we list special functions that are available as \LaTeX\
+math operators. Missing functions were defined by this package to provide
+a consistent set of macros.
+\subsection{Trigonometric and hyperbolic functions}
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll|lll}
+    \toprule
+    \textbf{Function}    & \textbf{Macro}    & \textbf{Output} &
+    \textbf{Function}    & \textbf{Macro}    & \textbf{Output}   \\
+    \midrule
+    sine                 & \verb|\sin(x)|    & $\sin(x)$       &
+    arcus sine           & \verb|\arcsin(x)| & $\arcsin(x)$      \\
+    cosine               & \verb|\cos(x)|    & $\cos(x)$       &
+    arcus cosine         & \verb|\arccos(x)| & $\arccos(x)$      \\
+    tangent              & \verb|\tan(x)|    & $\tan(x)$       &
+    arcus tangent        & \verb|\arctan(x)| & $\arctan(x)$      \\
+    cotangent            & \verb|\cot(x)|    & $\cot(x)$       &
+    arcus cotangent      & \verb|\arccot(x)| & $\arccot(x)$      \\
+    secant               & \verb|\sec(x)|    & $\sec(x)$       &
+    arcus secant         & \verb|\arcsec(x)| & $\arcsec(x)$      \\
+    cosecant             & \verb|\csc(x)|    & $\csc(x)$       &
+    arcus cosecant       & \verb|\arccsc(x)| & $\arccsc(x)$      \\
+    \midrule
+    hyperbolic sine      & \verb|\sinh(x)|   & $\sinh(x)$      &
+    area hyperbolic sine & \verb|\arsinh(x)| & $\arsinh(x)$      \\
+    hyp. cosine          & \verb|\cosh(x)|   & $\cosh(x)$      &
+    area hyp. cosine     & \verb|\arcosh(x)| & $\arcosh(x)$      \\
+    hyp. tangent         & \verb|\tanh(x)|   & $\tanh(x)$      &
+    area hyp. tangent    & \verb|\artanh(x)| & $\artanh(x)$      \\
+    hyp. cotangent       & \verb|\coth(x)|   & $\coth(x)$      &
+    area hyp. cotangent  & \verb|\arcoth(x)| & $\arcoth(x)$      \\
+    hyp. secant          & \verb|\sech(x)|   & $\sech(x)$      &
+    area hyp. secant     & \verb|\arsech(x)| & $\arsech(x)$      \\
+    hyp. cosecant        & \verb|\csch(x)|   & $\csch(x)$      &
+    area hyp. cosecant   & \verb|\arcsch(x)| & $\arcsch(x)$      \\
+    \midrule
+    sinus cardinalis     & \verb|\sinc(x)|   & $\sinc(x)$      &
+    \multicolumn{3}{c}{$\sinc(x) = \frac{\sin(x)}{x}$}           \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+\subsection{Logarithms}
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Function} & \textbf{Macro}   & \textbf{Output}
+                      & \textbf{Note}                       \\
+    \midrule
+    logarithm         & \verb|\log_a(x)| & $\log_a(x)$
+                      & $\log_a(x)=y \;\lequiv\; a^y=x$     \\
+    natural logarithm & \verb|\ln(x)|    & $\ln(x)$
+                      & $\ln(x) = \log_\e(x)$               \\
+    decadic logarithm & \verb|\lg(x)|    & $\lg(x)$
+                      & $\lg(x) = \log_{10}(x)$             \\
+    binary logarithm  & \verb|\lb(x)|    & $\lb(x)$
+                      & $\lb(x) = \log_2(x)$                \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+
+\subsection{Statistics}
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Function}            & \textbf{Macro}  & \textbf{Output} \\
+    \midrule
+    error function               & \verb|\erf(x)|  & $\erf(x)$       \\
+    complementary error function & \verb|\erfc(x)| & $\erfc(x)$      \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \erf(x) = \frac{2}{\sqrt{\pi}}\int_0^x \e^{-t^2}\diff t, \\
+  \erfc(x) = 1 - \erf(x).
+\end{gather}
+
+
+\subsection{Dirac delta distribution and Heaviside function}
+The dirac delta distribution and the Heaviside function are implemented using
+\texttt{mathtools} paired delimiters. They can be scaled with an optional
+argument or automatically adapt to the content using the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Function}        & \textbf{Macro}
+                             & \textbf{Output}          \\
+    \midrule
+    dirac delta distribution & \verb|\dirac{x-x_0}|
+                             & $\dirac{x-x_0}$          \\
+    heaviside function       & \verb|\heaviside{x-x_0}|
+                             & $\heaviside{x-x_0}$      \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \dirac{f} = \int_\Omega \dirac{x}f(x)\diff x = f(0), \\
+  \int_\Omega \dirac*{x - \frac{1}{2}}f(x, y)\diff x
+  = \function*{f}{\frac{1}{2}, y}, \\
+  \heaviside{x} = \begin{cases}
+    0 & x < 0    \\
+    1 & x \geq 0
+  \end{cases}, \\
+  \dd{}{x}\heaviside{x} = \dirac{x}.
+\end{gather}
+
+
+\section{Physics and Engineering notation}
+\subsection{Typesetting quantities}
+The rules for typesetting quantities is given in the ISO \num{80000}-1.
+All these rules are implemented in the package \texttt{siunitx}, which is
+loaded by the \texttt{tummath} package. For detailed information it is highly
+recommendet to take a look at the \texttt{siunitx} documentation on ctan
+\url{https://ctan.org/pkg/siunitx}. A brief overview over the most important
+rules and macros is summarized here.
+
+\begin{itemize}
+  \item Both, value and unit of a quantity must be printed in upright font and
+    between value and unit there must be a space. E.g.: $l=\SI{1.2}{\meter}$.
+  \item For better readability numbers can be printed in groups of three
+    digits.\\E.g.: $x=\num{12345.6789}$.
+  \item Units may use SI-prefixes without any space between prefix and unit.\\
+    E.g.: $l=\SI{1.2}{\nano\meter}=\SI{1.2e-9}{\meter}$
+  \item Between combined units, there should be a small space to avoid
+    confusion with prefixes.\\E.g.: $M=\SI{120}{\newton\meter}$.
+  \item In text or inline math mode, fractional units should use a division
+    symbol or reciprocal notation.\\E.g.: $\unitof{V}=\si{\volt} =
+      \si{\kg\m\squared\per\s\cubed\ampere} =
+      \si[per-mode=reciprocal]{\kg\m\squared\per\s\cubed\ampere}$.
+  \item In display math mode, fractional units may also be printed as
+    fractions.
+    \begin{equation}
+      \unitof{\epsilon_0} = \si{\A\s\per\V\m} =
+      \si{\coulomb\squared\per\N\m\squared}
+    \end{equation}
+  \item When using complex quantities, the complex number should be enclosed
+    in parentheses.\\E.g.: $\complexqty{7+3j}{\mohm}$
+  \item The standard uncerteinty of a quantity can be given in parentheses
+    (provided the assumed uncertainty is given by a normal distribution).
+    Printing uncertainties with the $\pm$-notation is mathematically wrong
+    and should be avoided whereever possible.\\
+    E.g.: $l=\SI{23.4782(32)}{\meter}$
+\end{itemize}
+
+The \texttt{tummath} package configures the default behaviour of
+\texttt{siunitx} to follow these rules as close as possible.
+The behaviour of all \texttt{siunitx} macros can be tweaked to specific needs
+through optional arguments. With version 3.0.0 (Mai 2021) \texttt{siunitx}
+changed its main document macros. Take a look at the documentation for further
+details.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}           & \textbf{Output}     \\
+    \midrule
+    number               & \verb|\num{5.34123e-9}|  & $\num{5.34123e-9}$  \\
+    complex number       & \verb|\num{4.3+2.9i}|
+                         & $\complexnum{4.3+2.9i}$                        \\
+    " \textit{(v3)}      & \verb|\complexnum{1+i2}| & $\complexnum{1+i2}$ \\
+    unit                 & \verb|\si{\nano\meter}|  & $\si{\nano\meter}$  \\
+    " \textit{(v3)}      & \verb|\unit{\km\per\s}|  & $\si{\km\per\s}$    \\
+    quantity             & \verb|\SI{1.23e4}{\volt\per\meter}|
+                         & $\SI{1.23e4}{\volt\per\meter}$                 \\
+    " \textit{(v3)}      & \verb|\qty{4.5678}{\N\per\m^2}|
+                         & $\SI{4.5678}{\N\per\m^2}$                      \\
+    angles decimal       & \verb|\ang{22.5}|        & $\ang{22.5}$        \\
+    " deg,min,sec        & \verb|\ang{12;30;45}|    & $\ang{12;30;45}$    \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+
+
+\subsection{Unit of and angle of operators}
+The unit of and angle of operators are implemented using \texttt{mathtools}
+paired delimiters. They can be scaled with an optional argument or
+automatically adapt to the content using the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}
+                         & \textbf{Output}                   \\
+    \midrule
+    unit of              & \verb|\unitof{x}|
+                         & $\unitof{x}$                      \\
+    angle of             & \verb|\angleof{\vec{a}}{\vec{b}}|
+                         & $\angleof{\vec{a}}{\vec{b}}$      \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \unitof{P} = \si{\milli\watt}, \\
+  \unitof{v} = \si{\meter\per\second}, \\
+  \unitof{E}_\mathrm{SI} = \si{\volt\per\meter}, \\
+  \unitof{E}_\mathrm{CGS} = \si{\statV\per\centi\meter}, \\
+  \theta = \angleof*{\overline{AB}}{\overline{AC}}, \\
+  \phi = \angleof*{\vec{a}}{\vec{b}}
+  = \arccos\frac{\innerp*{\vec{a}}{\vec{b}}}{\norm*{\vec{a}}\norm*{\vec{b}}}.
+\end{gather}
+
+
+\subsection{Functionals}
+The functionals macro is implemented using \texttt{mathtools} paired
+delimiters. It can be scaled with an optional argument or automatically adapt
+to the content using the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{llc}
+    \toprule
+    \textbf{Description} & \textbf{Macro}           & \textbf{Output}     \\
+    \midrule
+    functional           & \verb|\functional{S}{y}| & $\functional{S}{y}$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \functional[\big]{S}{\function{q}{t}} = \int_{t_1}^{t_2}
+  \function{\mathcal{L}}{q,\dot{q},t} \diff t \\
+  \delta \functional{S}{q} = 0 \quad\lequiv\quad
+  \dd{}{t}\pdd{\mathcal{L}}{\dot{q}_i} = \pdd{\mathcal{L}}{q_i}
+\end{gather}
+
+
+\subsection{Bra-Ket notation}
+All the bra-ket macros are implemented using \texttt{mathtools} paired
+delimiters. They can be scaled with an optional argument or automatically
+adapt to the content using the starred version. Inside the \verb|\braket{}|
+macro, the pipe symbol is redefined to print a vertical bar that automatically
+adapts to the delimiter size. The pipe symbol can be used arbitrarily often
+inside the braket macro.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}    & \textbf{Output} \\
+    \midrule
+    operator             & \verb|\op{H}|     & $\op{H}$        \\
+    \midrule
+    bra                  & \verb|\bra{\psi}| & $\bra{\psi}$    \\
+    ket                  & \verb|\ket{\psi}| & $\ket{\psi}$    \\
+    \midrule
+    bra-ket              & \verb"\braket{\psi | A | \psi}"
+                         & $\braket{\psi | A | \psi}$          \\[.5ex]
+    (inner product)      & \verb"\braket{\psi | \phi}"
+                         & $\braket{\psi|\phi}$                \\[.5ex]
+    (expectation value)  & \verb"\braket{\op{A}}"
+                         & $\braket{\op{A}}$                   \\
+    \midrule
+    ket-bra              & \verb|\ketbra{\psi}{\phi}|
+                         & $\ketbra{\psi}{\phi}$               \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \ket{\alpha}+\ket{\beta} = \ket{\alpha+\beta},\\
+  \i\hbar\ket*{\dot{\psi}(t)} = \op{H}\ket{\psi(t)}, \\
+  \ket*{\dd{\psi(t)}{t}} = -\frac{\i}{\hbar}\op{H}\ket{\psi(t)}, \\
+  \braket{\alpha | \beta} = \cc{\braket{\beta | \alpha}}, \\
+  \op{\rho} = \ketbra{\psi}{\psi}, \\
+  \op{\rho} = \sum_i p_i \ketbra{\psi_i}{\psi_i}, \\
+  \braket*{\psi | \op{A} | \phi}, \\
+  \braket*{\psi | \commutator{\op{A}}{\op{B}} | \psi}.
+\end{gather}
+
+
+\subsection{Commutators and Poisson Brackets}
+The poisson bracket and the commutators are implemented using
+\texttt{mathtools} paired delimiters. They can be scaled with an optional
+argument or automatically adapt to the content using the starred version.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description} & \textbf{Macro}
+                         & \textbf{Output}              \\
+    \midrule
+    poisson bracket      & \verb|\poissonbracket{f}{g}|
+                         & $\poissonbracket{f}{g}$      \\
+    commutator           & \verb|\commutator{A}{B}|
+                         & $\commutator{A}{B}$          \\
+    anti-commutator      & \verb|\anticommutator{A}{B}|
+                         & $\anticommutator{A}{B}$      \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \poissonbracket{f}{g} = \sum_{j=1}^S\left(
+    \pdd{f}{q_j}\pdd{g}{p_j} - \pdd{f}{p_j}\pdd{g}{q_j} \right), \\
+  \dd{f}{t}=\poissonbracket{f}{H}+\pdd{f}{t}, \\
+  \dot{q}_j = \poissonbracket{q_j}{H}, \\
+  \dot{p}_j = \poissonbracket{p_j}{H}, \\
+  \pdd{}{t}\poissonbracket{f}{g} = \poissonbracket*{\pdd{f}{t}}{g} +
+  \poissonbracket*{f}{\pdd{g}{t}},
+\end{gather}
+\begin{gather}
+  \commutator*{\op{A}}{\op{B}} = \op{A}\op{B} - \op{B}\op{A}, \\
+  \dd{\op{A}}{t} = \commutator*{\op{A}}{\op{H}} + \pdd{\op{A}}{t}, \\
+  \dot{\op{q}}_i = \frac{1}{\i\hbar}\commutator*{\op{q}_i}{\op{H}}, \\
+  \dot{\op{p}}_i = \frac{1}{\i\hbar}\commutator*{\op{p}_i}{\op{H}}, \\
+  \anticommutator*{\op{A}}{\op{B}} = \op{A}\op{B} + \op{B}\op{A}, \\
+\end{gather}
+
+
+\subsection{Tensors}
+To typeset tensors in index notation, the \texttt{tummath} package loads the
+\texttt{tensor} package. For detailed information take a look at the package
+documentation on ctan \url{https://ctan.org/pkg/tensor}.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description}     & \textbf{Macro}       & \textbf{Output} \\
+    \midrule
+    tensor & \verb|\tensor{T}{^a_b^c_d}| & $\tensor{T}{^a_b^c_d}$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  a^\prime_\alpha = \nu_{\alpha\beta}\tensor{\Lambda}{^\beta_\gamma}
+  \nu^{\gamma\delta}a_\delta = \tensor{\Lambda}{_\alpha^\delta}a_\delta, \\
+  T^{\prime\,\alpha_1\alpha_2\dots\alpha_n} =
+  \tensor{\Lambda}{^{\alpha_1}_{\beta_1}}
+  \tensor{\Lambda}{^{\alpha_2}_{\beta_2}}\dots
+  \tensor{\Lambda}{^{\alpha_n}_{\beta_n}}T^{\beta_1\beta_2\dots\beta_2}, \\
+  \tensor{\Gamma}{^\kappa_\mu_\lambda} = \frac{g^{\kappa\nu}}{2}
+  \left(\pdd{g_{\mu\nu}}{x^\lambda}+\pdd{g_{\lambda\nu}}{x^\mu}-
+    \pdd{g_{\mu\lambda}}{x^\nu}\right), \\
+  V_{\mu;\nu}=V_{\mu,\nu}-\tensor{\Gamma}{^\lambda_\mu_\nu}V_\lambda.
+\end{gather}
+
+
+\subsection{Transformations}
+This package provides macros for the transform symbols. The optional argument
+may be used to clarify the type of transformation if necessary.
+% \begin{noindent}
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Description}     & \textbf{Macro}       & \textbf{Output} \\
+    \midrule
+    transform symbol         & \verb|\transform|    & $\transform$    \\
+    inverse transform symbol & \verb|\itransform|   & $\itransform$   \\
+    \midrule
+    Fourier transform        & \verb|\transform[F]| & $\transform[F]$ \\
+    Laplace transform        & \verb|\transform[L]| & $\transform[L]$ \\
+    Z transform              & \verb|\transform[Z]| & $\transform[Z]$ \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+% \end{noindent}
+\begin{gather}
+  \function{F}{\omega} = \mathcal{F}\left\lbrace\function{f}{t}\right\rbrace
+  = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}
+  \function{f}{t}\e^{-\i\omega t} \diff t, \\
+  \function{f}{t} = \mathcal{F}^\inv\lbrace\function{F}{\omega}\rbrace
+  = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}
+  \function{F}{\omega}\e^{\i\omega t} \diff \omega.
+\end{gather}
+\begin{gather}
+  \function{F}{\varOmega} = \mathrm{DTFT}\lbrace f_k \rbrace
+  = \sum_{k=-\infty}^\infty f_k \e^{-\i\varOmega k}, \\
+  f_k = \mathrm{DTFT}^\inv\lbrace\function{F}{\varOmega}\rbrace
+  = \frac{1}{2\pi}\int_{-\pi}^{\pi}
+  \function{F}{\varOmega}\e^{\i\varOmega k} \diff \varOmega, \\
+  \mathrm{with}\;\varOmega = \omega\cdot T_A.
+\end{gather}
+\begin{gather}
+  \function{F}{s} = \mathcal{L}\lbrace\function{f}{t}\rbrace
+  = \int_0^\infty \function{f}{t}\e^{-st}\diff t, \\
+  \function{f}{t} = \mathcal{L}^\inv\lbrace\function{F}{s}\rbrace
+  = \frac{1}{2\pi\i}\int_{\gamma-\i\infty}^{\gamma+\i\infty}
+  \function{F}{s}\e^{st} \diff s, \\
+  \mathrm{with}\; s\in\Cnums,\; \gamma > \Re{s_0}.
+\end{gather}
+\begin{gather}
+  \function{F}{z} = \mathcal{Z}\lbrace f_k \rbrace
+  = \sum_{k=0}^\infty f_k z^{-k}, \\
+  f_k = \mathcal{Z}^\inv\lbrace\function{F}{z}\rbrace
+  = \frac{1}{2\pi\i}\oint_C \function{F}{z} z^{k-1} \diff z, \\
+  \mathrm{with}\; z = \e^{sT_A}.
+\end{gather}
+
+\begin{gather}
+  f(t-a) \transform[F] \e^{-\i a\omega}F(\omega), \\
+  F(\omega-a) \itransform[F] \e^{\i at}f(t), \\
+  f^{(n)}(t) \transform[F] (\i\omega)^nF(\omega),
+\end{gather}
+\begin{gather}
+  f(t-a) \transform[L] \e^{-as}F(s), \\
+  F(s-a) \itransform[L] \e^{at}f(t), \\
+  f^{(n)}(t) \transform[L] s^n F(s) - \sum_{k=0}^{n-1} s^{n-k-1} f^{(k)}(0),
+\end{gather}
+\begin{gather}
+  f_{k-n} \transform[Z] z^{-n}F(z), \\
+  F(az) \itransform[Z] a^{-k} f_k,
+\end{gather}
+\begin{gather}
+  f_{k-n} \transform[\mathrm{DTFT}] \e^{-\i\varOmega n} F(\varOmega), \\
+  F(\varOmega-a) \itransform[\mathrm{DTFT}] \e^{\i ak}f_k.
+\end{gather}
+
+\end{document}

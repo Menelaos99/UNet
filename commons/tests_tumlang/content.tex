@@ -1,0 +1,30 @@
+\tableofcontents
+
+\section{University name}
+
+Embed the name of the university (\theUniversityName{}) in text. For example,
+the \theUniversityName{} is in Munich.
+
+\section{Department and group names}
+
+Those can be adjusted by overwriting the default values in
+\texttt{tumuser.sty}. Without modifications, the department is
+\theDepartmentName{} and the group macro contains ``\theChairName{}''.
+
+\section{Switching languages}
+
+The templates use the babel package for language support. Supported languages
+are German (ngerman in babel) and English (english in babel). If you need to
+switch between languages within a document, you can use
+\begin{verbatim}
+\selectlanguage{X}
+\end{verbatim}
+where X is either ngerman or english.
+
+It is possible to define a macro that adapts its content to the active
+language. For example, the macro that prints the university name is defined
+as
+\begin{verbatim}
+\provideName{\theUniversityName}{Technical University of Munich}{Technische
+  Universität München}
+\end{verbatim}

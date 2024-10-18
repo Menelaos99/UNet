@@ -1,0 +1,204 @@
+\documentclass{scrartcl}
+
+\usepackage{tumbase}
+\usepackage{tumcolors}
+\usepackage{tumlogo}
+\usepackage{tumlang}
+\usepackage{tumcaptions}
+\PassOptionsToPackage{showframe}{geometry}
+\usepackage[@PAPER@, @ORIENTATION@]{tumpage}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{^}{>{\global\let\currentrowstyle\relax}}
+\newcolumntype{'}{>{\currentrowstyle}}
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}#1\ignorespaces}
+
+\usepackage{etoolbox}
+\usepackage{pgfmath}
+\usepackage{printlen}
+
+\newcommand{\prln}[2][mm]{\uselengthunit{#1}\rndprintlength{#2}}
+
+\newcommand{\acvd}[2]{%
+  % round value (in units pt) for comparison
+  \pgfmathparse{round(#1) == round(#2)}%
+  \ifnumequal{\pgfmathresult}{1}{%
+    \cellcolor{TUMGreen!20}\color{TUMGreen}\bfseries OK%
+  }{%
+    \cellcolor{TUMExtRed!20}\color{TUMExtRed}\bfseries FAIL%
+  }%
+}
+
+\newlength{\thefsize}
+\newlength{\theblskip}
+
+\makeatletter
+\newcommand{\getfsize}[1]{{#1%
+    \global\setlength{\thefsize}{\f@size pt}%
+    \global\setlength{\theblskip}{\baselineskip}%
+  }%
+}
+\makeatother
+
+\newcommand{\normaltest}{%
+  \pgfmathparse{round(\thefsize) == round(\refbasefont)}%
+  \ifnumequal{\pgfmathresult}{1}{%
+    \cellcolor{TUMGreen!20}}{\cellcolor{TUMExtRed!20}}%
+}
+
+
+% load reference values for layout dimensions and font sizes
+\input{reference_values.tex}
+
+% loading the desired TUM pagestyle
+\pagestyle{TUM.titlepage}
+
+% calculating page margins from TeX lengths
+% see https://en.wikibooks.org/wiki/LaTeX/Page_Layout
+\newlength{\topmrgn}
+\deflength{\topmrgn}{1in+\voffset+\topmargin+\headheight+\headsep}
+\newlength{\bottommrgn}
+\deflength{\bottommrgn}{\paperheight-\topmrgn-\textheight}
+\newlength{\innermrgn}
+\deflength{\innermrgn}{1in+\hoffset+\oddsidemargin}
+\newlength{\outermrgn}
+\deflength{\outermrgn}{\paperwidth-\innermrgn-\textwidth}
+
+
+\begin{document}
+\noindent
+This page uses the \textbf{TUM.titlepage} layout.\\
+You should see the TUM Logo and Threeliner in the headline printed
+in \textbf{\color{TUMBlue}TUMBlue}.
+
+\begin{table}[ht]
+  \caption{Layout dimensions check.}
+  \centering
+  \begin{tabular}{^l'r'r'c}
+    \toprule
+    \rowstyle{\bfseries}
+    length name    & real value
+                   & reference value
+                   & achieved                                   \\
+    \midrule
+    top margin     & \prln{\topmrgn}
+                   & \prln{\reftopmrgn}
+                   & \acvd{\topmrgn}{\reftopmrgn}               \\
+    bottom margin  & \prln{\bottommrgn}
+                   & \prln{\refbottommrgn}
+                   & \acvd{\bottommrgn}{\refbottommrgn}         \\
+    inner margin   & \prln{\innermrgn}
+                   & \prln{\refinnermrgn}
+                   & \acvd{\innermrgn}{\refinnermrgn}           \\
+    outer margin   & \prln{\outermrgn}
+                   & \prln{\refoutermrgn}
+                   & \acvd{\outermrgn}{\refoutermrgn}           \\
+    \midrule
+    headheight     & \prln{\headheight}
+                   & \prln{\refheadheight}
+                   & \acvd{\headheight}{\refheadheight}         \\
+    headsep        & \prln{\headsep}
+                   & \prln{\refheadsep}
+                   & \acvd{\headsep}{\refheadsep}               \\
+    footskip       & \prln{\footskip}
+                   & \prln{\reffootskip}
+                   & \acvd{\footskip}{\reffootskip}             \\
+    \midrule
+    marginparwidth & \prln{\marginparwidth}
+                   & \prln{\refmarginparwidth}
+                   & \acvd{\marginparwidth}{\refmarginparwidth} \\
+    marginparsep   & \prln{\marginparsep}
+                   & \prln{\refmarginparsep}
+                   & \acvd{\marginparsep}{\refmarginparsep}     \\
+    columnsep      & \prln{\columnsep}
+                   & \prln{\refcolumnsep}
+                   & \acvd{\columnsep}{\refcolumnsep}           \\
+    \midrule
+    paperheight    & \prln{\paperheight}
+                   & \prln{\refpaperheight}
+                   & \acvd{\paperheight}{\refpaperheight}       \\
+    paperwidth     & \prln{\paperwidth}
+                   & \prln{\refpaperwidth}
+                   & \acvd{\paperwidth}{\refpaperwidth}         \\
+    textheight     & \prln{\textheight}
+                   & ---
+                   & ---                                        \\
+    textwidth      & \prln{\textwidth}
+                   & ---
+                   & ---                                        \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+  \caption{Font sizes specified by the TUM Corporate Design.}
+  \centering
+  \begin{tabular}{^l'r'r'c}
+    \toprule
+    \rowstyle{\bfseries}
+    size name & fontsize
+              & reference value
+              & achieved                        \\
+    \midrule
+    \getfsize{\usekomafont{TUM.H1}}%
+    TUM H1    & \prln[pt]{\thefsize}
+              & \prln[pt]{\refonefont}
+              & \acvd{\thefsize}{\refonefont}   \\
+    \getfsize{\usekomafont{TUM.H2}}%
+    TUM H2    & \prln[pt]{\thefsize}
+              & \prln[pt]{\reftwofont}
+              & \acvd{\thefsize}{\reftwofont}   \\
+    \getfsize{\usekomafont{TUM.H3}}%
+    TUM H3    & \prln[pt]{\thefsize}
+              & \prln[pt]{\refthreefont}
+              & \acvd{\thefsize}{\refthreefont} \\
+    \getfsize{\usekomafont{TUM.H4}}%
+    TUM H4    & \prln[pt]{\thefsize}
+              & \prln[pt]{\reffourfont}
+              & \acvd{\thefsize}{\reffourfont}  \\
+    \getfsize{\usekomafont{TUM.base}}%
+    TUM Base  & \prln[pt]{\thefsize}
+              & \prln[pt]{\refbasefont}
+              & \acvd{\thefsize}{\refbasefont}  \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+  \caption{Summary of available \LaTeX\ font sizes.\\
+    Normalsize should be set equal to TUM Base.}
+  \centering
+  \begin{tabular}{^l'l'l}
+    \toprule
+    \rowstyle{\bfseries}
+    size name    & fontsize             & baselineskip          \\
+    \midrule
+    \getfsize{\Huge}%
+    Huge         & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\huge}%
+    huge         & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\LARGE}%
+    LARGE        & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\Large}%
+    Large        & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\large}%
+    large        & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \midrule
+    \getfsize{\normalsize}\rowstyle{\normaltest}%
+    normal       & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\small}%
+    small        & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\footnotesize}%
+    footnotesize & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\scriptsize}%
+    scriptsize   & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \getfsize{\tiny}%
+    tiny         & \prln[pt]{\thefsize} & \prln[pt]{\theblskip} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{document}

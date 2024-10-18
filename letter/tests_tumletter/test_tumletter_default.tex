@@ -1,0 +1,27 @@
+\documentclass[english]{tumletter}
+
+\usepackage{lipsum}
+
+
+% set letter specific variables (overwriting defaults)
+\setkomavar{date}{April 1, 2021}
+\setkomavar{signature}{Erika Mustermann\\(Chief of Science)}
+
+% letter subject
+\setkomavar{subject}{Reply to your notes on the grand unified theory}
+
+
+\begin{document}
+\begin{letter}{Dr.\@~Dr.\@\ Sheldon Lee Cooper\\
+    California Institute of Technology\\
+    1200 East California Boulevard\\
+    Pasadena, California 91125}
+
+  \opening{Dear Mr.\@\ Cooper:}
+  \lipsum[1-8]
+  \closing{Best regards,}
+
+  \ps PS: It's always a pleasure correcting your theories :-)
+  \encl{Some trivial proof\\The corrected grand unified theory}
+\end{letter}
+\end{document}

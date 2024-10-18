@@ -1,0 +1,25 @@
+\documentclass{scrartcl}
+
+\usepackage{tumbase}
+\usepackage{tumcolors}
+\usepackage{tumlang}
+\usepackage{tumauthblk}
+
+% reduce size to avoid overfull hbox warning
+\setkomafont{author}{\large}
+
+\title{Test case: Four authors, three affiliation}
+
+\author[affil={1,2},orcid=4711,email=erwin@lolcats.org]{E.~Schrödinger}
+\author[affil={2,\textdagger}]{W.~Heisenberg}
+\email{werner@uncertainty.org}
+\author[affil={1,\textdagger},email=pam@lostprophets.com]{P.A.M.~Dirac}
+\author[affil=3,orcid=1337]{W.~Pauli}
+\affil[mark=1]{School of Rock}
+\affil[mark=2]{School of Life}
+\affil[mark=3]{School of Hard Knocks}
+\affil[mark=\textdagger]{currently on hiatus}
+
+\begin{document}
+\input{content.tex}
+\end{document}

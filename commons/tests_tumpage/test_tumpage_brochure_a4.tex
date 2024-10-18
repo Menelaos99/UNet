@@ -1,0 +1,214 @@
+\documentclass[parskip=on, twoside]{scrartcl}
+
+\usepackage{tumbase}
+\usepackage{tumcolors}
+\usepackage{tumlogo}
+\usepackage[german]{tumlang}
+\usepackage{tumcaptions}
+\PassOptionsToPackage{showframe}{geometry}
+\usepackage[papername=a4paper, headline=threeliner]{tumpage}
+\usepackage{tumfonts}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ragged2e}
+\usepackage{url}
+
+
+\begin{document}
+
+% .:: Page 1
+% ----------------------------------------------------------------------------
+\pagestyle{TUM.titlepage}
+{\usekomafont{TUM.H1}Überschrift 1 läuft über gesamte Papierbreite\par}
+{\usekomafont{TUM.H2} Überschrift 2 läuft über die gesamte Papierbreite\par}
+\strut\par
+\includegraphics[width=\textwidth, height=0.85\textheight]{example-image}
+
+% .:: Page 2
+% ----------------------------------------------------------------------------
+\pagestyle{TUM.insidepage}
+{\usekomafont{TUM.H1} Mustervorlage Broschüre DIN A4\par}
+\strut\par
+\begin{multicols*}{2}
+  {\usekomafont{TUM.H2} Die Broschüre ist ein mehrseitiges Heft (mindestens
+    8 Seiten).\par}
+  {\usekomafont{TUM.H3} Für ein 4-seitiges Dokument wählen Sie bitte
+    die Vorlage für ein Faltblatt.\par}
+
+  \paragraph{Schriftgröße 11pt}\strut\\
+  Dies ist die Vorlage für eine Broschüre (DIN A4, Hochformat) der Technischen
+  Universität München (TUM). Sie entspricht dem Corporate Design der TUM und
+  ist für das Betriebssystem Windows getestet. Sie ist mit Office-Versionen ab
+  2007 kompatibel.\par
+  Bitte geben Sie Ihren individuellen Text an den vorgesehenen Stellen ein und
+  nutzen Sie die installierten Formatvorlagen für den jeweiligen
+  Textabschnitt.
+
+  \paragraph{Kopfzeile und Absender}\strut\\
+  Es stehen mehrere Varianten zur Auswahl. Diese finden Sie auf den nächsten
+  Seiten als Beispiel oder unter www.tum.de/cd, welche für die verschiedenen
+  Nutzergruppen vorgesehen sind. Außerdem sind die Kopfzeilenvarianten bereits
+  in den Schnellbausteinen angelegt. Wählen Sie dazu das Menü "Organizer für
+  Schnellbausteine" und klicken die entsprechende Kopfzeile der TUM an. Sie
+  gelangen auch über das „Menüband“ unter dem Reiter „Kopfzeile“ zu diesen
+  Textbausteinen.
+
+  \paragraph{Text}\strut\\
+  Grundsätzlich steht der Text linksbündig oder als linksbündiger Blocksatz.
+  Aber Sie haben auch hier Varianten zur Auswahl:
+  \begin{itemize}
+    \item Legen Sie den Text in zwei Spalten an. Das ist die übliche
+      Textanordnung in diesem Format.
+    \item Legen Sie den Text in einer Spalte an. Diese Variante ist weniger
+      empfehlenswert, da sie besonders bei großen Textmengen nicht
+      leserfreundlich ist.
+    \item Legen Sie den Text in einer Spalte mit einer Marginalspalte an. Die
+      Marginalspalte kann Zusatzinformationen oder Randbemerkungen enthalten
+      und ist deshalb für erklärende oder wissenschaftliche Texte gut
+      geeignet.
+  \end{itemize}
+  Die Varianten sollten nicht oder nur selten innerhalb eines Dokuments
+  wechseln. Auf den folgenden Seiten sehen Sie Beispiele der Text-Varianten.
+\end{multicols*}
+
+% .:: Page 3 and 4
+% ----------------------------------------------------------------------------
+\pagestyle{TUM.margincolumn}
+\strut\marginpar{\RaggedRight\footnotesize Die kleine sogenannte
+  Mar\-gi\-nal\-spal\-te außen liefert Zusatzinformationen oder
+  Randbemerkungen zum Haupttext nebenan.}
+
+\vspace{-\baselineskip}\vspace{-\parskip}
+\begingroup
+\includegraphics[width=\textwidth, height=.5\textheight]{example-image-a}
+\captionof{figure}{Bildunterschrift, Autor etc.}
+\endgroup
+
+\paragraph{Bilder}\strut\\
+Auch wenn Sie Bilder integrieren möchten, können Sie innerhalb des
+vorgegebenen Rahmens dieser Vorlage variieren:
+\begin{itemize}
+  \item Das Bild ist an die Breite der Textspalte angepasst
+  \item Das Bild ist seitenfüllend innerhalb des vorgesehenen Textrahmens (mit
+    weißem Rand)
+  \item Das Bild ist seitenfüllend bis an den Papierrand (randabfallend) --
+    an mindestens drei Seiten.
+\end{itemize}
+\marginpar{\RaggedRight\footnotesize Der Begriff Aufläsung taucht z.B. im
+  Zusammenhang mit Fernsehbildschirmen oder Digitalkameras auf. Hier
+  beschreibt Auflösung die Bildqualität.}
+
+Bilder sollten immer eine Bildunterschrift tragen, die ggf. Informationen zum
+Bild und zur Autorenschaft enthält.\par
+
+Das Bild sollte außerdem immer genügend Abstand zum Text haben. Gleiches gilt
+für Grafiken.\par
+\marginpar{\RaggedRight\footnotesize Nur mit einer entsprechend hohen
+  Auflösung wirken Bilder in Druckerzeugnissen nicht verschwommen oder
+  pixelig. Bilder aus dem Internet eignen sich in der Regel nicht zum Druck.}
+
+Auch die Qualität Ihrer Bilder ist wichtig. Die Größe einer Bilddatei gibt
+dabei meist einen Hinweis auf die Druckqualität (Auflösung). Falls Sie die
+Bildauflösung nicht ermitteln können, machen Sie am besten einen Ausdruck der
+betreffenden Seite in Originalgröße, um das Ergebnis zu überprüfen.
+
+\paragraph{Druck}\strut\\
+\marginpar{\RaggedRight\footnotesize Die kleine sogenannte Marginalspalte
+  außen liefert Zusatzinformationen oder Randbemerkungen zum Haupttext
+  nebenan.}
+Am besten lassen Sie mehrseitige Broschüren professionell drucken, denn je
+nach Art der Bindung und Seitenanzahl ist eine bestimmte Anordnung der Seiten
+(Ausschießen) notwendig. Wenn darüber hinaus Bilder eine Seite vollflächig
+(randabfallend) aus füllen, schneidet der Drucker die Seiten so ab
+(Beschnitt), dass es keinen weißen Rand gibt.\par
+
+Broschüren haben mindestens 8 Seiten (das wären 4 Seiten Umschlag und 4
+Innenseiten) und wachsen immer um 4 Seiten (8, 12, 16, 20 etc.). Denn das
+entspricht einem weiteren Papierbogen.\par
+
+Je nach Seitenanzahl, Papierwahl und Verwendung gibt es unterschiedliche
+Möglichkeiten der Bindung. Zwei übliche Verfahren wären:
+\begin{itemize}
+  \item Rückendrahtheftung – eine einfache Bindung mit Klammern
+    (Draht) im Falz wie bei vielen Magazinen.
+  \item Klebebindung – man arbeitet hierfür mit unterschiedlichen Verfahren
+    und Klebemitteln. Generell werden die Innenseiten am Rücken verklebt und
+    mit einem Umschlag versehen wie beim Forschungsmagazin oder bei
+    Taschenbüchern. In dieser Variante sind ungerade Seitenzahlen möglich.
+\end{itemize}
+Wenn Sie Ihr Dokument z. B. zur Überprüfung selbst ausdrucken möchten,
+empfiehlt es sich, ein PDF in Originalgröße zu erstellen. Achten Sie immer
+darauf, dass das Dokument in Originalgröße gedruckt wird, also keine Anpassung
+an die Druckränder bei Ihren Druckereinstellungen aktiviert ist.\par
+
+Wählen Sie bitte unbedingt weiße Papiere statt Naturpapier mit starker Braun-
+oder Graufärbung. Denn nur sie entsprechen dem Charakter des Corporate Designs
+der TUM. Denken Sie daran, dass auch Papierstärke (Dicke) und Haptik einen
+Einfluss auf das Druckergebnis haben.\par
+
+Für den doppelseitigen Druck ist im Zweifelsfall die Nutzeranweisung des
+jeweiligen Druck-Gerätes zu beachten. Beachten Sie dass Broschürendruck nicht
+mit allen Programmversionen und Druckern möglich ist.\par
+
+Weitere Informationen zum Corporate Design der TUM finden
+Sie unter \url{www.tum.de/cd}
+
+% .:: Page 5, 6, and 7
+% ----------------------------------------------------------------------------
+\clearpage
+\pagestyle{TUM.insidepage}
+{\usekomafont{TUM.H1} Beispiele für Bildeinsatz\par}
+
+\begin{figure}[h]
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth, height=.35\textheight]{example-image-a}
+    \caption{Hier steht eine Bildunterschrift.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth, height=.35\textheight]{example-image-b}
+    \caption{Hier steht eine Bildunterschrift.}
+  \end{subfigure}
+  \vskip\baselineskip
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth, height=.35\textheight]{example-image-c}
+    \caption{Hier steht eine Bildunterschrift.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth, height=.35\textheight]{example-image}
+    \caption{Hier steht eine Bildunterschrift.}
+  \end{subfigure}
+\end{figure}
+
+\clearpage
+{\usekomafont{TUM.H1} Beispiele für Bildeinsatz\par}
+
+\begingroup
+\includegraphics[width=\textwidth, height=0.85\textheight]{example-image}
+\captionsetup{format=hang}
+\captionof{figure}{Link Seite: Großes Bild im vorgesehenen
+  Gestaltungsrahmen -- mit Bildunterschrift.\\
+  Rechte Seite: Großes randabfallendes Bild -- Ihre Bildunterschrift muss z.B.
+  im Abbildungsverzeichnis stehen.}
+\endgroup
+
+\newgeometry{width=\paperwidth, height=\paperheight}
+\includegraphics[width=0.999\paperwidth,
+  height=0.999\paperheight]{example-image-a}
+
+
+% .:: Page 8
+% ----------------------------------------------------------------------------
+\pagestyle{TUM.titlepage}
+\strut\vfill
+\theUniversityName\\
+\theDepartmentName\\
+\theChairName\\
+\\
+Arcisstraße 21\\
+80333 München\\
+\\
+\textbf{www.fk.tum.de}
+\end{document}

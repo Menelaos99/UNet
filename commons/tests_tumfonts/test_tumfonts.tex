@@ -1,0 +1,183 @@
+\documentclass{scrartcl}
+
+\usepackage{tumbase}
+\usepackage[@TEXTFONT@, @MATHFONT@]{tumfonts}
+
+\usepackage[math]{blindtext}
+\usepackage{csquotes}
+
+% imaginary units i, j, and k
+\renewcommand*{\i}{\ensuremath{\mathrm{i}}}
+\renewcommand*{\j}{\ensuremath{\mathrm{j}}}
+\renewcommand*{\k}{\ensuremath{\mathrm{k}}}
+
+
+\begin{document}
+
+\section{Manual test}
+
+This is an example text. And here are some equations to test the mathematical
+font, for example, the famous Schrödinger equation
+\begin{equation}
+  \mathrm{i} \hbar \partial_t \Psi = \hat H \Psi.
+\end{equation}
+
+Vectors may assume different forms, either with arrow or similar symbol on
+top ($\vec E$, $\vec r_0$, ...) or in bold math font ($\mathbf{E}$,
+$\mathbf{r}_0$).
+
+In particular, it is important that inline mathematical expression such as
+the short equation $a^2 + b^2 = c^2$ and numbers $\approx 1, 2, 3$ blend in
+nicely.
+This is assumed to be difficult with sans serif fonts such as Helvetica. And
+what about greek letters ($\alpha$, $\beta$, $\gamma$, $\Delta$, $\xi$,
+$\Xi$, ...) or calligraphic letters ($\mathcal{L}$, $\mathcal{H}$,
+$\mathcal{M}$, ...) or fraktur letters ($\mathfrak{su}$) or Hebrew letters
+($\aleph$, $\beth$, ...)?
+
+Further examples are Maxwell's equations in 1D
+\begin{subequations}
+  \begin{align}
+    \partial_t E_z & = \epsilon^{-1}
+    \left( -\sigma E_z - \partial_t P_z + \partial_x H_y \right), \\
+    \partial_t H_y & = \mu^{-1} \partial_x E_z,
+  \end{align}
+\end{subequations}
+or the von Neumann equation for a two-level quantum mechanical system
+\begin{subequations}
+  \begin{align}
+    \partial_t \Delta & = -4\Omega_\mathrm{R} \rho_i - \tau_1^{-1}
+    \left( \Delta - \Delta_0 \right),                                      \\
+    \partial_t \rho_r & = \omega_{12} \rho_i - \tau_{2}^{-1} \rho_r,       \\
+    \partial_t \rho_i & = -\omega_{12} \rho_r + \Omega_\mathrm{R} \Delta -
+    \tau_{2}^{-1} \rho_i,
+  \end{align}
+\end{subequations}
+here written as set of elementwise differential equations.
+
+Of course, also monospace text is quite interesting, in particular in
+programming. Here, one usually writes command in the command line in this
+font,
+for example, \texttt{ls -al gunter}, where \texttt{gunter} may be a file or a
+directory.
+
+\section{Helvetica test}
+
+Certain parts (e.g., TUM threeliner in header) require Helvetica in both
+cases.
+
+\begingroup
+\fontfamily{phv}\selectfont
+This paragraph must be in Helvetica. This paragraph must be in Helvetica.
+This paragraph must be in Helvetica.
+\endgroup
+
+\section{Blind math paper}
+
+\blindmathpaper
+
+\subsection{Blindtext}
+Dies ist ein Typoblindtext. An ihm kann man sehen, ob alle Buchstaben da sind
+und wie sie aussehen. Manchmal benutzt man Worte wie Hamburgefonts,
+Rafgenduks oder Handgloves, um Schriften zu testen. Manchmal Sätze, die alle
+Buchstaben des Alphabets enthalten - man nennt diese Sätze
+\enquote{Pangrams}. Sehr bekannt ist dieser: The quick brown fox jumps over
+the lazy old dog. Oft werden in Typoblindtexte auch fremdsprachige Satzteile
+eingebaut (AVAIL\textregistered\ and Wefox\texttrademark\ are testing aussi
+la Kerning), um die Wirkung in anderen Sprachen zu testen. In Lateinisch
+sieht zum Beispiel fast jede Schrift gut aus. Quod erat demonstrandum. Seit
+1975 fehlen in den meisten Testtexten die Zahlen, weswegen nach TypoGb. 204 §
+ab dem Jahr 2034 Zahlen in 86 der Texte zur Pflicht werden. Nichteinhaltung
+wird mit bis zu 245 \texteuro\ oder 368 \textdollar\ oder 173 \textsterling\
+bestraft. Genauso wichtig in sind mittlerweile auch Â\c{c}cè\~{n}t\"{e}, die
+in neueren Schriften aber fast immer enthalten sind. Ein wichtiges aber
+schwierig zu integrierendes Feld sind OpenType-Funktionalitäten. Je nach
+Software und Voreinstellungen können eingebaute Kapitälchen, Kerning oder
+Ligaturen (sehr pfiffig) nicht richtig dargestellt werden.
+\textcopyright~Blindtext Generator
+
+\section{Font size comparison}
+
+\subsection{Text font families and shapes}
+
+Comparison of serif and sans serif text fonts. They should match in size and
+appearance\\
+A\textsf{A}B\textsf{B}C\textsf{C}D\textsf{D}E\textsf{E}F\textsf{F}G\textsf{G}
+H\textsf{H}I\textsf{I}J\textsf{J}K\textsf{K}L\textsf{L}M\textsf{M}N\textsf{N}
+O\textsf{O}P\textsf{P}Q\textsf{Q}R\textsf{R}S\textsf{S}T\textsf{T}U\textsf{U}
+V\textsf{V}W\textsf{W}X\textsf{X}Y\textsf{Y}Z\textsf{Z}\\
+a\textsf{a}b\textsf{b}c\textsf{c}d\textsf{d}e\textsf{e}f\textsf{f}g\textsf{g}
+h\textsf{h}i\textsf{i}j\textsf{j}k\textsf{k}l\textsf{l}m\textsf{m}n\textsf{n}
+o\textsf{o}p\textsf{p}q\textsf{q}r\textsf{r}s\textsf{s}t\textsf{t}u\textsf{u}
+v\textsf{v}w\textsf{w}x\textsf{x}y\textsf{y}z\textsf{z}\\\\
+Comparison of serif and typewriter text fonts\\
+A\texttt{A}B\texttt{B}C\texttt{C}D\texttt{D}E\texttt{E}F\texttt{F}G\texttt{G}
+H\texttt{H}I\texttt{I}J\texttt{J}K\texttt{K}L\texttt{L}M\texttt{M}N\texttt{N}
+O\texttt{O}P\texttt{P}Q\texttt{Q}R\texttt{R}S\texttt{S}T\texttt{T}U\texttt{U}
+V\texttt{V}W\texttt{W}X\texttt{X}Y\texttt{Y}Z\texttt{Z}\\
+a\texttt{a}b\texttt{b}c\texttt{c}d\texttt{d}e\texttt{e}f\texttt{f}g\texttt{g}
+h\texttt{h}i\texttt{i}j\texttt{j}k\texttt{k}l\texttt{l}m\texttt{m}n\texttt{n}
+o\texttt{o}p\texttt{p}q\texttt{q}r\texttt{r}s\texttt{s}t\texttt{t}u\texttt{u}
+v\texttt{v}w\texttt{w}x\texttt{x}y\texttt{y}z\texttt{z}\\\\
+All sans serif and all typewriter alphabet\\
+{\sffamily ABCDEFGHIJKLMNOPQRSTUVWXYZ\\ abcdefghijklmnopqrstuvwxyz
+0123456789}\\
+{\ttfamily ABCDEFGHIJKLMNOPQRSTUVWXYZ\\ abcdefghijklmnopqrstuvwxyz
+0123456789}
+
+\subsection{Math alphabet and main text font}
+
+Main text font and math font should have equal height and depth. Also the
+stroke width and overall appearance should match to ensure a harmonic look\\
+A$A$B$B$C$C$D$D$E$E$ F$F$G$G$H$H$I$I$J$J$ K$K$L$L$M$M$N$N$O$O$
+P$P$Q$Q$R$R$S$S$T$T$ U$U$V$V$W$W$X$X$Y$Y$Z$Z$\\
+a$a$b$b$c$c$d$d$e$e$ f$f$g$g$h$h$i$i$j$j$ k$k$l$l$m$m$n$n$o$o$
+p$p$q$q$r$r$s$s$t$t$ u$u$v$v$w$w$x$x$y$y$z$z$\\
+0$0$1$1$2$2$3$3$4$4$5$5$6$6$7$7$8$8$9$9$
+
+\subsection{Greek alphabet}
+
+Greek upper case letters\\
+$\mathrm{AB}\Gamma\Delta \mathrm{EZH}\Theta \mathrm{IK}\Lambda\mathrm{MN}$
+$\Xi\mathrm{O}\Pi\mathrm{P} \Sigma\mathrm{T}\Upsilon\Phi$
+$\mathrm{X}\Psi\Omega$
+\\
+\\Greek lower case letters\\
+$\alpha\beta\gamma\delta \epsilon\varepsilon\zeta\eta$
+$\theta\vartheta\iota\kappa \lambda\mu\nu\xi o\pi\varpi\rho$
+$\varrho\sigma\varsigma\tau \upsilon\phi\varphi\chi \psi\omega$ \\
+\\Proper math fonts also provide italic upper case greek letters\\
+$AB\varGamma\varDelta EZH\varTheta IK\varLambda MN\varXi O\varPi P\varSigma$
+$T\varUpsilon\varPhi X\varPsi\varOmega$ \\
+\\Very good math fonts might also provide upright lowercase Greek letters\\
+$\upalpha\upbeta\upgamma\updelta\upepsilon\upvarepsilon\upzeta\upeta\uptheta$
+$\upvartheta\upiota\upkappa\uplambda\upmu\upnu\upxi$
+$o\uppi\upvarpi\uprho\upvarrho\upsigma\upvarsigma\uptau\upupsilon\upphi$
+$\upvarphi\upchi\uppsi\upomega$\\
+\\Greek letters should match the Latin letters in height and depth\\
+$a\alpha b\beta c\gamma d\delta e\epsilon\varepsilon f\zeta g\eta$
+$h\theta\vartheta i\iota jk\kappa\varkappa l\lambda m\mu n\nu\xi\pi\varpi$
+$op\rho\varrho qrs\sigma\varsigma t\tau uv\upsilon owx\chi y\psi z\omega$
+
+\subsection{Check important math symbols}
+
+A collection of important math symbols that should be provided by any font\\
+$\forall \exists \nexists \in \ni \notin \infty \propto \partial \nabla$
+$\dagger\ddagger \emptyset\varnothing \aleph$ $\hbar h \imath i\i \jmath$
+$j\j$\\
+$+-\pm\mp \cdot\times\ast\circ\div / =\neq\equiv\approx\sim$
+$<>\ll\gg\leq\geq\leqq\geqq$
+$\subset\supset\nsupseteq\subseteq\supseteq\subsetneq\supsetneq$
+$\cup\cap \vee\wedge\neg \perp\parallel$ \\
+$\oplus\ominus\otimes\oslash\odot\circledcirc\circledast$
+$\leftarrow\rightarrow\leftrightarrow\uparrow\downarrow\updownarrow$
+$\Leftarrow\Rightarrow\Leftrightarrow\Uparrow\Downarrow\Updownarrow$
+$\rightleftarrows\rightleftharpoons\dots\vdots\cdots\ddots$
+
+\subsection{Check additional math alphabets}
+$\mathbb{C}\mathbb{R}\mathbb{Q}\mathbb{Z}\mathbb{N}\mathbb{1}$\\
+$\mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
+$\mathfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
+$\mathfrak{abcdefghijklmnopqrstuvwxyz}$
+
+\end{document}

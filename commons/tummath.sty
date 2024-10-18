@@ -1,0 +1,588 @@
+% File: tummath.sty Copyright (C) 2019 The LaTeX4EI Team
+% Provides default math notation and operators for the TUM Corporate Design
+% template classes.
+%
+% It may be distributed and/or modified under the conditions of the
+% LaTeX Project Public License (LPPL), either version 1.3c of this
+% license or (at your option) any later version. The latest version
+% of this license is in the file
+%
+%    https://www.latex-project.org/lppl.txt
+%
+% This file is part of the "tum-templates bundle" (The Work in LPPL)
+% and all files in that bundle must be distributed together.
+%
+%
+% ----------------------------------------------------------------------------
+%
+% The development version of the bundle can be found at
+%
+%    https://gitlab.lrz.de/latex4ei/tum-templates
+%
+% for those people who are interested.
+%
+% ----------------------------------------------------------------------------
+%
+% Version history:
+% v2.1 2021/06/22 Initial version.
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tummath}[2021/06/17 v2.1]
+
+
+% .:: Required packages
+% ----------------------------------------------------------------------------
+
+\RequirePackage{etoolbox}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage[centercolon=true]{mathtools}
+\RequirePackage{scalerel}
+\RequirePackage{bm}
+\RequirePackage{tensor}
+\RequirePackage{siunitx}
+\RequirePackage{tikz}
+
+
+% .:: Better left right commands to solve spacing issues
+% ----------------------------------------------------------------------------
+
+\let\originalleft\left
+\let\originalright\right
+\renewcommand*{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand*{\right}{\aftergroup\egroup\originalright}
+
+
+% .:: BASIC MATH
+% ----------------------------------------------------------------------------
+
+
+% .:: Logic
+% ----------------------------------------------------------------------------
+
+\newcommand*{\lifthen}{\mathbin{\Rightarrow}}       % logical implication
+\newcommand*{\lequiv}{\mathbin{\Leftrightarrow}}    % logical equivalence
+
+
+% .:: Set Theory
+% ----------------------------------------------------------------------------
+
+% macro to add horizontal space depending on delimiter size
+\newcommand*{\@delimsize@spacing@}{
+  \ifdefstring{\delimsize}{\@MHempty}{\:\!}{}   % 1mu (4-3)
+  \ifdefstring{\delimsize}{\big}{\;\!}{}        % 2mu (5-3)
+  \ifdefstring{\delimsize}{\Big}{\,}{}          % 3mu
+  \ifdefstring{\delimsize}{\bigg}{\:}{}         % 4mu
+  \ifdefstring{\delimsize}{\Bigg}{\;}{}         % 5mu
+  \ifdefstring{\delimsize}{\middle}{\;}{}       % 5mu
+}
+
+\DeclarePairedDelimiterXPP{\set}[1]{
+  % define macro `\given` adding 3mu plus delimsize dependent
+  % horizontal space before and after the | symbol
+  \def\given{\,\@delimsize@spacing@\delimsize\vert\@delimsize@spacing@\,}
+}{\lbrace}{\rbrace}{
+  % undefine macro `\given` since it shouldn't be used outside `\set{}`
+  \undef\given
+}{#1}
+
+% cardinality of a set
+\DeclareMathOperator{\card}{card}
+
+
+% .:: Maps and Functions
+% ----------------------------------------------------------------------------
+
+\DeclareMathOperator{\id}{id}         % identity map
+\DeclareMathOperator{\im}{im}         % image of a map
+\DeclareMathOperator{\preim}{preim}   % pre-image of a map
+
+% typeset functions with scalable parens and brackets
+\DeclarePairedDelimiterXPP{\function}[2]{#1}{\lparen}{\rparen}{}{#2}
+
+
+% .:: Numbers
+% ----------------------------------------------------------------------------
+
+% definition of basic number sets
+\newcommand*{\Nnums}{\ensuremath{\mathbb{N}}}   % natural numbers
+\newcommand*{\Znums}{\ensuremath{\mathbb{Z}}}   % integer numbers
+\newcommand*{\Qnums}{\ensuremath{\mathbb{Q}}}   % rational numbers
+\newcommand*{\Rnums}{\ensuremath{\mathbb{R}}}   % real numbers
+\newcommand*{\Cnums}{\ensuremath{\mathbb{C}}}   % complex numbers
+\newcommand*{\Hnums}{\ensuremath{\mathbb{H}}}   % quaternions
+
+% imaginary units i, j, k (upright according to ISO-80000-2)
+% AfterEndPreamble needed because palatino seems to overwrite `\k` otherwise
+\AfterEndPreamble{
+  \let\dotlessi\i     % save text dotless i
+  \let\dotlessj\j     % save text dotless j
+  \let\ogonek\k       % save text accent ogonek
+  \renewcommand*{\i}{\ensuremath{\mathrm{i}}}
+  \renewcommand*{\j}{\ensuremath{\mathrm{j}}}
+  \renewcommand*{\k}{\ensuremath{\mathrm{k}}}
+}
+
+% shorthand macro for default imaginary unit
+\newcommand*{\imu}{\j}
+
+% complex conjugate
+\newcommand*{\cc}[1]{\ensuremath{\overline{#1}}}
+
+% redefine macros for real and imaginary part using fraktur font
+\let\Re\relax
+\let\Im\relax
+\DeclarePairedDelimiterXPP{\Re}[1]{\mathfrak{Re}}{\lbrace}{\rbrace}{}{#1}
+\DeclarePairedDelimiterXPP{\Im}[1]{\mathfrak{Im}}{\lbrace}{\rbrace}{}{#1}
+
+% underlined complex quantities according to DIN EN 60027-1
+\newcommand{\cnum}[1]{\ensuremath{\underline{\smash{#1}}}}
+\newcommand{\cvec}[1]{\cnum{\vec{#1}}}
+\newcommand{\cmat}[1]{\cnum{\mat{#1}}}
+
+
+% .:: Symbols for relations and comparison
+% ----------------------------------------------------------------------------
+
+% use the same colon-equality-symbols with all supported fonts
+\AtBeginDocument{
+  \let\coloneq\coloneqq
+  \let\eqcolon\eqqcolon
+  \let\Coloneq\Coloneqq
+  \let\Eqcolon\Eqqcolon
+}
+
+% equality sign with def printed above it
+\newcommand*{\defeq}{\ensuremath{\stackrel{\mathrm{def}}{=}}}
+% equality sign with exclamation mark
+\newcommand*{\excleq}{\ensuremath{\stackrel{!}{=}}}
+% equality sign with hat
+\newcommand*{\correq}{\ensuremath{\mathrel{\hat{=}}}}
+
+
+% .:: Symbols for intervals and rounding
+% ------------------------------------------------------------------------------
+
+% intervals
+\DeclarePairedDelimiter{\cinterval}{\lbrack}{\rbrack}
+\DeclarePairedDelimiter{\ointerval}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\ocinterval}{\lparen}{\rbrack}
+\DeclarePairedDelimiter{\cointerval}{\lbrack}{\rparen}
+
+% floor and ceil rounding
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+
+% .:: ANALYSIS
+% ----------------------------------------------------------------------------
+
+% absolute value
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+% signum operator
+\DeclareMathOperator{\sgn}{sgn}
+
+% euler number e has to be printed in upright font according to ISO-80000-2
+\newcommand*{\e}{\ensuremath{\mathrm{e}}}
+
+% landau symbol, big O notation
+\DeclarePairedDelimiterXPP{\landau}[1]{\mathcal{O}}{\lparen}{\rparen}{}{#1}
+
+
+% .:: Differential element and (partial) derivatives
+% ----------------------------------------------------------------------------
+
+% differential element symbol (upright d according to ISO-80000-2)
+% with math operator space before and removed space after the d
+\newcommand*{\diff}{\ensuremath{\mathop{}\!\mathrm{d}}}
+% derivative
+\newcommand*{\dd}[3][]{%
+  \ifstrempty{#1}{%
+    \frac{\diff#2}{\diff#3}%
+  }{%
+    \frac{\diff^{#1}#2}{\diff{#3}^{#1}}%
+  }
+}
+% partial derivative
+\newcommand*{\pdd}[3][]{%
+  \ifstrempty{#1}{%
+    \frac{\partial#2}{\partial#3}%
+  }{%
+    \frac{\partial^{#1}#2}{\partial{#3}^{#1}}%
+  }%
+}
+
+
+% .:: LINEAR ALGEBRA
+% ----------------------------------------------------------------------------
+
+
+% .:: Matrices
+% ----------------------------------------------------------------------------
+
+% matrix typsetting as bold symbol
+\newcommand*{\mat}[1]{{\bm{#1}}}
+
+% transposed matrix
+\let\transp\relax
+\newcommand*{\transp}{\mathrm{T}}
+% adjoint matrix, hermitian conjugate matrix, conjugate transpose matrix
+\newcommand*{\adjoint}{\dagger}
+% inverse matrix
+\newcommand*{\inv}{{-1}}
+% adjugated matrix
+\DeclareMathOperator{\adj}{adj}
+% define trace, rank, and diag operators
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+
+% typeset matrices and determinants with elements
+\newcommand*{\Mat}[2][c]{
+  \mathchoice{
+    % display-math style
+    \begin{pmatrix}[*\c@MaxMatrixCols #1]#2\end{pmatrix}
+  }{
+    % inline-math style
+    \begin{psmallmatrix*}[#1]#2\end{psmallmatrix*}
+  }{
+    % scriptstyle
+    \begin{psmallmatrix*}[#1]#2\end{psmallmatrix*}
+  }{
+    % scriptscriptstyle
+    \begin{psmallmatrix*}[#1]#2\end{psmallmatrix*}
+  }
+}
+\newcommand*{\Det}[2][c]{%
+  \mathchoice{
+    % display-math style
+    \begin{vmatrix}[*\c@MaxMatrixCols #1]#2\end{vmatrix}
+  }{
+    % inline-math style
+    \begin{vsmallmatrix*}[#1]#2\end{vsmallmatrix*}
+  }{
+    % scriptstyle
+    \begin{vsmallmatrix*}[#1]#2\end{vsmallmatrix*}
+  }{
+    % scriptscriptstyle
+    \begin{vsmallmatrix*}[#1]#2\end{vsmallmatrix*}
+  }
+}
+
+
+% inspiration for the matrix row and column counters were taken from
+% https://tex.stackexchange.com/questions/65649/counters-for-use-in-array-tabular-cells
+
+% initialize counters
+\newcounter{tabrow}
+\newcounter{tabcol}
+\newcounter{tabcoltot}
+
+% redefine the macro inserting columns and add column counter stepping
+\def\insert@column{%
+  \the@toks \the \@tempcnta%
+  \global\advance\c@tabcol\@ne%       <- column counter += 1
+  \ignorespaces \@sharp \unskip%
+  \the@toks \the \count@ \relax}
+
+% redefine the table carriage return macro
+\let\old@arraycr\@arraycr
+\def\@arraycr{%
+  \global\c@tabcoltot\c@tabcol%       <- save column count
+  \global\c@tabcol\z@%                <- reset column counter to 0
+  \global\advance\c@tabrow\@ne%       <- row counter += 1
+  \old@arraycr}
+
+% redefine macro that starts a new table (matrix)
+\let\old@tabarray\@tabarray
+\def\@tabarray{%
+  \global\c@tabrow\@ne%               <- reset row counter to 1
+  \global\c@tabcol\z@%                <- reset column counter to 0
+  \old@tabarray}
+
+% patch multicolumn command to advance column counter according to the
+% number of spanned columns
+\apptocmd{\multicolumn}{%
+  \addtocounter{tabcol}{#1-1}%
+  \ignorespaces%
+}{
+  \typeout{Patching of \string\multicolumn\space command successful.}
+}{
+  \PackageError{Pathcing of \string\multicolumn\space command failed}
+}
+
+
+% redefine the matrix environments to take an optional argument with
+% column specifiers. This is useful to typeset linear systems, where a
+% vertical line between matrix columns is desired
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  % set rule spacing inside matrix environments to 0pt
+  \setlength{\aboverulesep}{0pt}%
+  \setlength{\belowrulesep}{0pt}%
+  \setlength{\cmidrulekern}{\arraycolsep}%
+  % redefine the `\midrule` macro to extend only to the actually configured
+  % total columns and add kerning to make sure the rule doesn't conflict
+  % with the matrix delimiters
+  \def\midrule{\cmidrule(lr){1-\thetabcoltot}}%
+  % add a small space `\,` before the matrix content
+  \hskip -\arraycolsep\,
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+
+\renewenvironment{matrix}{%
+  \matrix@check\matrix\env@matrix
+}{%
+  % add a small space `\,` after the matrix content
+  \endarray \hskip -\arraycolsep\,
+}
+
+
+% .:: Vectors
+% ----------------------------------------------------------------------------
+
+% save vector with arrow as `\varvec`
+\let\varvec=\vec
+% use bold symbols for vectors
+\renewcommand*{\vec}[1]{{\bm{#1}}}
+
+% kronecker and levi-civita symbol
+\newcommand*{\kronecker}[1]{\delta_{#1}}
+\newcommand*{\leviciv}[1]{\epsilon_{#1}}
+
+% typeset vectors with elements
+\renewcommand*{\Vec}[2][c]{\Mat[#1]{#2}}
+
+
+% .:: Vector spaces
+% ----------------------------------------------------------------------------
+
+% span of a vector space
+\DeclareMathOperator{\vspan}{span}
+% norm
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% inner product
+\DeclarePairedDelimiterX{\innerp}[2]{\langle}{\rangle}{#1,#2}
+
+
+% .:: VECTOR ANALYSIS
+% ----------------------------------------------------------------------------
+
+% save division symbol as `\division`
+\let\division\div
+\undef\div
+% define gradient, divergence, and rotation operators
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\div}{div}
+\DeclareMathOperator{\rot}{rot}
+% define grad, div, and rot with nabla notation
+\newcommand*{\Grad}{\nabla}
+\newcommand*{\Div}{\nabla\cdot}
+\newcommand*{\Rot}{\nabla\times}
+% define laplace operator
+\newcommand*{\laplace}{\rotatebox[origin=c]{180}{\ensuremath{\nabla}}}
+% define d'Alembert operator
+\newcommand*{\dalembert}{\scalerel*{\square}{\nabla}}
+
+
+% .:: STATISTICS
+% ----------------------------------------------------------------------------
+
+% probability
+\DeclarePairedDelimiterXPP{\proba}[1]{%
+  % define macro `\given` adding delimsize dependent
+  % horizontal space before and after the | symbol
+  \def\given{\@delimsize@spacing@\delimsize\vert\@delimsize@spacing@}%
+  \mathrm{P}%
+}{\lparen}{\rparen}{%
+  % undefine macro `\given` since it shouldn't be used outside `\proba{}`
+  \undef\given%
+}{#1}
+
+% expectation values
+\DeclarePairedDelimiterXPP{\expect}[1]{\mathrm{E}}{\lparen}{\rparen}{}{#1}
+\DeclarePairedDelimiter{\varexpect}{\langle}{\rangle}
+
+% variance and covariance
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+
+
+% .:: SPECIAL FUNCTIONS
+% ----------------------------------------------------------------------------
+
+% missing trigonometric functions
+\DeclareMathOperator{\arccot}{arccot}   % arcus cotangent
+\DeclareMathOperator{\arcsec}{arcsec}   % arcus secant
+\DeclareMathOperator{\arccsc}{arccsc}   % arcus cosecant
+% missing hyperbolic functions
+\DeclareMathOperator{\sech}{sech}       % hyperbolic secant
+\DeclareMathOperator{\csch}{csch}       % hyperbolic cosecant
+\DeclareMathOperator{\arsinh}{arsinh}   % area hyperbolic sine
+\DeclareMathOperator{\arcosh}{arcosh}   % area hyperbolic cosine
+\DeclareMathOperator{\artanh}{artanh}   % area hyperbolic tangent
+\DeclareMathOperator{\arcoth}{arcoth}   % area hyperbolic cotangent
+\DeclareMathOperator{\arsech}{arsech}   % area hyperbolic secant
+\DeclareMathOperator{\arcsch}{arcsch}   % area hyperbolic cosecant
+% sinc function sin(x)/x
+\DeclareMathOperator{\sinc}{sinc}
+
+% binary logarithm function
+\DeclareMathOperator{\lb}{lb}
+
+% statistics
+\DeclareMathOperator{\erf}{erf}         % error function
+\DeclareMathOperator{\erfc}{erfc}       % complementary error function
+
+% dirac delta distribution
+\DeclarePairedDelimiterXPP{\dirac}[1]{\updelta}{\lparen}{\rparen}{}{#1}
+
+% heaviside function
+\DeclarePairedDelimiterXPP{\heaviside}[1]{\uptheta}{\lparen}{\rparen}{}{#1}
+
+
+% .:: PHYSICS AND ENGINEERING
+% ----------------------------------------------------------------------------
+
+
+% .:: Quantities, units and angles
+% ------------------------------------------------------------------------------
+
+% siunitx setup (general)
+\sisetup{
+  retain-explicit-plus = true,
+  group-minimum-digits = 4,
+  output-complex-root = \imu,
+  complex-root-position = before-number,
+  per-mode = symbol-or-fraction,
+  bracket-unit-denominator = true,
+  sticky-per = true
+}
+
+% siunitx setup (version dependent)
+\@ifpackagelater{siunitx}{2021/05/01}{
+  %%% siunitx v3
+  \sisetup{
+    mode = match,
+    reset-text-family = false,
+    reset-text-series = false,
+    reset-text-shape = false,
+  }
+}{
+  %%% siunitx v2
+  \sisetup{
+    detect-all,
+    detect-display-math = true,
+    detect-inline-family = math,
+    detect-inline-weight = math,
+  }
+  % ensure correct math font when using helvet
+  \AtBeginDocument{\sisetup{math-rm=\mathrm}}
+}
+
+% change siunitx locale according to babel language
+\addto\captionsenglish{\sisetup{locale=US}}
+\addto\captionsngerman{\sisetup{locale=DE}}
+
+% unit operatior
+\DeclarePairedDelimiter{\unitof}{\lbrack}{\rbrack}
+
+% angle operator
+\DeclarePairedDelimiterXPP{\angleof}[2]{%
+  \measuredangle}{\lparen}{\rparen}{}{#1,#2}
+
+
+% .:: Functionals
+% ----------------------------------------------------------------------------
+
+\DeclarePairedDelimiterXPP{\functional}[2]{#1}{\lbrack}{\rbrack}{}{#2}
+
+
+% .:: Quantum mechanical operators
+% ----------------------------------------------------------------------------
+
+\newcommand*{\op}[1]{\hat{#1}}
+
+
+% .:: Bra-Ket notation
+% ----------------------------------------------------------------------------
+
+\DeclarePairedDelimiter{\bra}{\langle}{\rvert}
+\DeclarePairedDelimiter{\ket}{\lvert}{\rangle}
+
+\DeclarePairedDelimiterXPP{\braket}[1]{%
+  % make the pipe symbol `|` an active character within the braket command
+  \mathcode`\|="8000%
+}{\langle}{\rangle}{}{#1}
+
+% redefine the pipe symbol `|` for usage as an active character within the
+% `\braket` macro. It should print a vertical line of size `\delimsize`
+% and add some horizontal space around it depending on the delimiter size.
+\begingroup
+\catcode`\|=\active
+\gdef|{\@delimsize@spacing@\delimsize\vert\@delimsize@spacing@}
+\endgroup
+
+\DeclarePairedDelimiterX{\ketbra}[2]{\lvert}{\rvert}{
+  #1 \delimsize\rangle\delimsize\langle #2}
+
+
+% . :: Commutators and Poisson brackets
+% ----------------------------------------------------------------------------
+
+\DeclarePairedDelimiterX{\commutator}[2]{\lbrack}{\rbrack}{#1,#2}
+\DeclarePairedDelimiterXPP{\anticommutator}[2]{}{\lbrack}{\rbrack}{_+}{#1,#2}
+\DeclarePairedDelimiterX{\poissonbracket}[2]{\lbrace}{\rbrace}{#1,#2}
+
+
+% .:: Transformations
+% ----------------------------------------------------------------------------
+
+% transform symbol, open circle left, filled circle right
+\newcommand*{\@transform@symbol@}[1][]{%
+  \begin{tikzpicture}[x=1.1em, y=1.1em, baseline=-.5ex]
+    \draw (0, 0) -- (1, 0);
+    \node[anchor=south, inner sep=0pt] at (.5, .2)
+      {\ensuremath{\scriptscriptstyle\mathcal{#1}}};
+    \draw[black, fill=white] (0, 0) circle(.15);
+    \draw[black,fill=black] (1, 0) circle(.15);
+  \end{tikzpicture}%
+}
+
+% transform symbol, open circle right, filled circle left
+\newcommand*{\@inverse@transform@symbol@}[1][]{%
+  \begin{tikzpicture}[x=1.1em, y=1.1em, baseline=-.5ex]
+    \draw (0, 0) -- (1, 0);
+    \node[anchor=south, inner sep=0pt] at (.5, .2)
+      {\ensuremath{\scriptscriptstyle\mathcal{#1}}};
+    \draw[black, fill=black] (0, 0) circle(.15);
+    \draw[black,fill=white] (1, 0) circle(.15);
+  \end{tikzpicture}%
+}
+
+% document macro to print the transform symbol properly scaled to the
+% used math font size
+\newcommand*{\transform}[1][]{
+  \mathchoice{
+    \mathrel{\@transform@symbol@[#1]}
+  }{
+    \mathrel{\@transform@symbol@[#1]}
+  }{
+    \mathrel{\scalebox{0.731}{\@transform@symbol@[#1]}}
+  }{
+    \mathrel{\scalebox{0.557}{\@transform@symbol@[#1]}}
+  }
+}
+
+% document macro to print the inverse transform symbol properly scaled to the
+% used math font size
+\newcommand*{\itransform}[1][]{
+  \mathchoice{
+    \mathrel{\@inverse@transform@symbol@[#1]}
+  }{
+    \mathrel{\@inverse@transform@symbol@[#1]}
+  }{
+    \mathrel{\scalebox{0.731}{\@inverse@transform@symbol@[#1]}}
+  }{
+    \mathrel{\scalebox{0.557}{\@inverse@transform@symbol@[#1]}}
+  }
+}

@@ -1,0 +1,80 @@
+\begin{document}
+
+\begin{frame}[t]{Test}
+  Hello World!
+  \begin{tcolorbox}[TUMBoxFill=TUMOrange, title=Attention]
+    This is a very important remark!
+  \end{tcolorbox}
+  \begin{tcolorbox}[TUMBoxFill=TUMGreen, title=Note]
+    This is a note.
+  \end{tcolorbox}
+
+  \begin{TUMBox}{Nice box}
+    This is the default TUMBox.
+  \end{TUMBox}
+  \begin{TUMBoxVariant}{Another style}
+    This is a box using the TUMBoxVariant style.
+  \end{TUMBoxVariant}
+\end{frame}
+
+
+\begin{frame}[t]{Test}
+  We can also produce boxes in different colors.
+  \begin{TUMBox}[TUMExtGoldenrod]{Goldenrod color}
+    Inside a goldenrod colored TUMBox.
+  \end{TUMBox}
+  \begin{TUMBoxVariant}[TUMExtLime]{lime color}
+    And here we have the alternate TUMBoxVariant style with a lime colored
+    frame.
+  \end{TUMBoxVariant}
+\end{frame}
+
+
+\begin{frame}[t]{Test}
+  We can also use the tcolorbox environment directly and make further
+  modifications
+  \begin{tcolorbox}[title=Colored text, TUMBox=TUMExtNavy, coltext=TUMExtRed]
+    Here a box with a red colored text.
+  \end{tcolorbox}
+  \begin{tcolorbox}[title=Modified lower part, TUMBoxVariant=TUMExtForest,
+      collower=TUMExtViolet, fontlower=\sffamily\bfseries\itshape]
+    Here a box with a different colored lower part
+    \tcblower
+    Violet text in bold and italic.
+  \end{tcolorbox}
+\end{frame}
+
+
+\begin{frame}[t]{Frame with boxed itemize}
+  \begin{tcbitemize}[
+      raster equal height=rows,
+      raster equal skip=1mm,
+      TUMBox=TUMBlue]
+
+    \tcbitem[title=One]
+      First Statement
+      \tcblower
+      Lower part
+
+    \tcbitem[title=Two]
+      Second Statement
+
+    \tcbitem[title=Three]
+      We can also simply \highlight[TUMExtTeal]{highlight} Text
+      in different \highlight[TUMExtRed]{colors}.
+
+    \tcbitem[title=Four]
+      \begin{equation*}
+        \int\limits_{1}^{x} \frac{1}{t}~dt = \ln(x).
+      \end{equation*}
+
+    \tcbitem[title=Five]
+      \includegraphics[width=1cm]{goldshade.png}
+
+    \tcbitem[title=Six]
+      Test
+  \end{tcbitemize}
+\end{frame}
+
+
+\end{document}

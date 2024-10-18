@@ -1,0 +1,30 @@
+\documentclass{scrlttr2}
+
+\usepackage{tumbase}
+\usepackage{tumcolors}
+\usepackage{tumlogo}
+\usepackage{tumlang}
+\PassOptionsToPackage{showframe}{geometry}
+\usepackage[a4paper]{tumpage}
+\usepackage{tumfonts}
+
+
+\usepackage{blindtext}
+
+\makeatletter
+\@setplength{toaddrhpos}{2.5cm}
+\makeatother
+\renewcommand*{\raggedsignature}{\raggedright}
+
+\pagestyle{TUM.letterpage}
+
+\begin{document}
+\begin{letter}{Ministry of Silly Walks\\42 Slithery Road\\Weston-super-Mare}
+  \opening{To whom it may concern:}
+  \thispagestyle{TUM.letterpage}
+
+  \Blindtext
+
+  \closing{Best regards,}
+\end{letter}
+\end{document}

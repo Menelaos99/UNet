@@ -1,0 +1,168 @@
+\newlength{\reftopmrgn}
+\newlength{\refbottommrgn}
+\newlength{\refinnermrgn}
+\newlength{\refoutermrgn}
+\newlength{\refheadheight}
+\newlength{\refheadsep}
+\newlength{\reffootskip}
+\newlength{\refmarginparwidth}
+\newlength{\refmarginparsep}
+\newlength{\refcolumnsep}
+\newlength{\refpaperheight}
+\newlength{\refpaperwidth}
+\newlength{\refonefont}
+\newlength{\reftwofont}
+\newlength{\refthreefont}
+\newlength{\reffourfont}
+\newlength{\refbasefont}
+
+
+% .:: Define lengths according to paper size and orientation
+% ----------------------------------------------------------------------------
+% Values taken from TUM CD Handbook and extracted from PowerPoint Templates
+\makeatletter
+\ifdefstring{\@tum@papername@}{a0paper}{
+  \deflength{\reftopmrgn}{138mm}
+  \deflength{\refbottommrgn}{46mm}
+  \deflength{\refinnermrgn}{46mm}
+  \deflength{\refoutermrgn}{46mm}
+  \deflength{\refheadheight}{46mm}
+  \deflength{\refheadsep}{46mm}
+  \deflength{\reffootskip}{0mm}
+  \deflength{\refmarginparwidth}{0mm}
+  \deflength{\refmarginparsep}{0mm}
+  \deflength{\refcolumnsep}{18mm}
+  \ifbool{@tum@landscape@}{
+    \deflength{\refpaperheight}{841mm}
+    \deflength{\refpaperwidth}{1189mm}
+  }{
+    \deflength{\refpaperheight}{1189mm}
+    \deflength{\refpaperwidth}{841mm}
+  }
+  \deflength{\refonefont}{94pt}
+  \deflength{\reftwofont}{67pt}
+  \deflength{\refthreefont}{44pt}
+  \deflength{\reffourfont}{30pt}
+  \deflength{\refbasefont}{25pt}
+}{}
+\ifdefstring{\@tum@papername@}{a1paper}{
+  \deflength{\reftopmrgn}{105mm}
+  \deflength{\refbottommrgn}{35mm}
+  \deflength{\refinnermrgn}{35mm}
+  \deflength{\refoutermrgn}{35mm}
+  \deflength{\refheadheight}{35mm}
+  \deflength{\refheadsep}{35mm}
+  \deflength{\reffootskip}{0mm}
+  \deflength{\refmarginparwidth}{0mm}
+  \deflength{\refmarginparsep}{0mm}
+  \deflength{\refcolumnsep}{14mm}
+  \ifbool{@tum@landscape@}{
+    \deflength{\refpaperheight}{594mm}
+    \deflength{\refpaperwidth}{841mm}
+  }{
+    \deflength{\refpaperheight}{841mm}
+    \deflength{\refpaperwidth}{594mm}
+  }
+  \deflength{\refonefont}{67pt}
+  \deflength{\reftwofont}{49pt}
+  \deflength{\refthreefont}{39pt}
+  \deflength{\reffourfont}{26pt}
+  \deflength{\refbasefont}{22pt}
+}{}
+\ifdefstring{\@tum@papername@}{a2paper}{
+  \deflength{\reftopmrgn}{81mm}
+  \deflength{\refbottommrgn}{27mm}
+  \deflength{\refinnermrgn}{27mm}
+  \deflength{\refoutermrgn}{27mm}
+  \deflength{\refheadheight}{27mm}
+  \deflength{\refheadsep}{27mm}
+  \deflength{\reffootskip}{0mm}
+  \deflength{\refmarginparwidth}{0mm}
+  \deflength{\refmarginparsep}{0mm}
+  \deflength{\refcolumnsep}{10mm}
+  \ifbool{@tum@landscape@}{
+    \deflength{\refpaperheight}{420mm}
+    \deflength{\refpaperwidth}{594mm}
+  }{
+    \deflength{\refpaperheight}{594mm}
+    \deflength{\refpaperwidth}{420mm}
+  }
+  \deflength{\refonefont}{48pt}
+  \deflength{\reftwofont}{35pt}
+  \deflength{\refthreefont}{28pt}
+  \deflength{\reffourfont}{20pt}
+  \deflength{\refbasefont}{18pt}
+}{}
+\ifdefstring{\@tum@papername@}{a3paper}{
+  \deflength{\reftopmrgn}{54mm}
+  \deflength{\refbottommrgn}{18mm}
+  \deflength{\refinnermrgn}{18mm}
+  \deflength{\refoutermrgn}{18mm}
+  \deflength{\refheadheight}{18mm}
+  \deflength{\refheadsep}{18mm}
+  \deflength{\reffootskip}{0mm}
+  \deflength{\refmarginparwidth}{0mm}
+  \deflength{\refmarginparsep}{0mm}
+  \deflength{\refcolumnsep}{7mm}
+  \ifbool{@tum@landscape@}{
+    \deflength{\refpaperheight}{297mm}
+    \deflength{\refpaperwidth}{420mm}
+  }{
+    \deflength{\refpaperheight}{420mm}
+    \deflength{\refpaperwidth}{297mm}
+  }
+  \deflength{\refonefont}{34pt}
+  \deflength{\reftwofont}{25pt}
+  \deflength{\refthreefont}{20pt}
+  \deflength{\reffourfont}{16pt}
+  \deflength{\refbasefont}{16pt}
+}{}
+\ifdefstring{\@tum@papername@}{a4paper}{
+  \deflength{\reftopmrgn}{30mm}
+  \deflength{\refbottommrgn}{10mm}
+  \deflength{\refinnermrgn}{10mm}
+  \deflength{\refoutermrgn}{10mm}
+  \deflength{\refheadheight}{10mm}
+  \deflength{\refheadsep}{10mm}
+  \deflength{\reffootskip}{0mm}
+  \deflength{\refmarginparwidth}{0mm}
+  \deflength{\refmarginparsep}{0mm}
+  \deflength{\refcolumnsep}{5mm}
+  \ifbool{@tum@landscape@}{
+    \deflength{\refpaperheight}{210mm}
+    \deflength{\refpaperwidth}{297mm}
+  }{
+    \deflength{\refpaperheight}{297mm}
+    \deflength{\refpaperwidth}{210mm}
+  }
+  \deflength{\refonefont}{24pt}
+  \deflength{\reftwofont}{18pt}
+  \deflength{\refthreefont}{14pt}
+  \deflength{\reffourfont}{11pt}
+  \deflength{\refbasefont}{11pt}
+}{}
+\ifdefstring{\@tum@papername@}{a5paper}{
+  \deflength{\reftopmrgn}{21mm}
+  \deflength{\refbottommrgn}{7mm}
+  \deflength{\refinnermrgn}{7mm}
+  \deflength{\refoutermrgn}{7mm}
+  \deflength{\refheadheight}{7mm}
+  \deflength{\refheadsep}{7mm}
+  \deflength{\reffootskip}{0mm}
+  \deflength{\refmarginparwidth}{0mm}
+  \deflength{\refmarginparsep}{0mm}
+  \deflength{\refcolumnsep}{5mm}
+  \ifbool{@tum@landscape@}{
+    \deflength{\refpaperheight}{148mm}
+    \deflength{\refpaperwidth}{210mm}
+  }{
+    \deflength{\refpaperheight}{210mm}
+    \deflength{\refpaperwidth}{148mm}
+  }
+  \deflength{\refonefont}{17pt}
+  \deflength{\reftwofont}{13pt}
+  \deflength{\refthreefont}{11pt}
+  \deflength{\reffourfont}{9pt}
+  \deflength{\refbasefont}{9pt}
+}{}
+\makeatother

@@ -1,0 +1,132 @@
+\blindtext
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.5\textwidth]{example-image-a}
+  \caption{Very short caption.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.5\textwidth]{example-image-a}
+  \caption{This, on the other hand, is very long caption. It is so long, that
+    during the time it takes to read it kingdoms may rise and fall again.}
+\end{figure}
+
+\begin{figure}
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{example-image-a}
+    \subcaption{Subfigure left, short caption.}
+    \label{fig:grid_a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{example-image-a}
+    \subcaption{Subfigure right has a long long long long long long caption.}
+    \label{fig:grid_b}
+  \end{subfigure}
+  \centering
+  \caption{Schematic overview of the FDTD method. The circles and crosses
+    represent the spatiotemporal discretization of the magnetic field and
+    electric field. Additionally, the crosses denote the positions of the
+    quantum mechanical systems.}
+  \label{fig:grid}
+\end{figure}
+
+\begin{table}
+  \caption{Very short caption.}
+  \centering
+  \begin{tabular}{lcr}
+    \toprule
+    Header 1 & Header 2 & Header 3 \\
+    \midrule
+    Data 1   & 3.5      & 4.3      \\
+    Data 2   & 3.5      & 4.3      \\
+    Data 3   & 3.5      & 4.3      \\
+    Data 4   & 3.5      & 4.3      \\
+    Data 5   & 3.5      & 4.3      \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{This, on the other hand, is very long caption. It is so long, that
+    during the time it takes to read it kingdoms may rise and fall again.}
+  \centering
+  \begin{tabular}{lcr}
+    \toprule
+    Header 1 & Header 2 & Header 3 \\
+    \midrule
+    Data 1   & 3.5      & 4.3      \\
+    Data 2   & 3.5      & 4.3      \\
+    Data 3   & 3.5      & 4.3      \\
+    Data 4   & 3.5      & 4.3      \\
+    Data 5   & 3.5      & 4.3      \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{algorithm}[H]
+  \centering
+  \begin{algorithmic}
+    \FOR{$n = 0$ \TO $n_\mathrm{max}$}
+
+    \FOR{$m = 1$ \TO $m_\mathrm{max}$}
+    \STATE{$h[m] \gets \mathrm{update\_h}(e[m], e[m-1])$}
+    \STATE{$d[m] \gets \mathrm{update\_d}(e[m])$}
+    \STATE{$p[m] \gets \mathrm{calc\_p}(d[m])$}
+    \ENDFOR
+    \STATE{sync()}
+
+    \FOR{$m = 0$ \TO $m_\mathrm{max}-1$}
+    \STATE{$e[m] \gets \mathrm{update\_e}(h[m + 1], h[m], p[m])$}
+    \ENDFOR
+    \STATE{sync()}
+    \ENDFOR
+  \end{algorithmic}
+  \caption{Simulation main loop -- basic version.}
+  \label{alg:loop_basic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \centering
+  \begin{algorithmic}
+    \FOR{$n = 0$ \TO $n_\mathrm{max}$}
+
+    \FOR{$m = 1$ \TO $m_\mathrm{max}$}
+    \STATE{$h[m] \gets \mathrm{update\_h}(e[m], e[m-1])$}
+    \STATE{$d[m] \gets \mathrm{update\_d}(e[m])$}
+    \STATE{$p[m] \gets \mathrm{calc\_p}(d[m])$}
+    \ENDFOR
+    \STATE{sync()}
+
+    \FOR{$m = 0$ \TO $m_\mathrm{max}-1$}
+    \STATE{$e[m] \gets \mathrm{update\_e}(h[m + 1], h[m], p[m])$}
+    \ENDFOR
+    \STATE{sync()}
+    \ENDFOR
+  \end{algorithmic}
+  \caption{Simulation main loop -- basic version. The same algorithm but with
+    a way longer, way way longer, I would even say way, way, way longer
+    caption.}
+  \label{alg:loop_basic2}
+\end{algorithm}
+
+Finally, the Listing~\ref{lst:overlap} is beautiful.
+
+\begin{lstlisting}[caption={Overlap of computation and communication.},
+  label={lst:overlap}]
+int main(int argc, char **argv) {
+    return 0;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Overlap of computation and communication. Here
+  with a significantly longer caption. Should exceed a line length, I
+  believe. Just keep on typing until it does.}, label={lst:overlap2}]
+int main(int argc, char **argv) {
+    return 0;
+}
+\end{lstlisting}
